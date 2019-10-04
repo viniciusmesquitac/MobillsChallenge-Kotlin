@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /*
+  ~  * 27/7/2019.
+  ~  * @Author Vinicius Mesquita
+  ~  */
+  -->
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+    android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+    android:layout_height="100dp">
+
+    <RelativeLayout
+        android:id="@+id/relative_layout"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:outlineAmbientShadowColor="@color/colorAccent">
+
+        <TextView
+            android:id="@+id/txt_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="174dp"
+
+            android:layout_marginRight="174dp"
+            android:layout_marginBottom="10dp"
+            android:text="Hamburguer Barato.."
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/txt_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_description"
+            android:layout_alignStart="@+id/txt_description"
+            android:layout_alignLeft="@+id/txt_description"
+            android:layout_alignEnd="@+id/txt_description"
+            android:layout_alignRight="@+id/txt_description"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:text="Comida"
+            android:textColor="@color/colorBlue" />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignRight="@+id/price_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="31dp"
+            android:layout_marginBottom="62dp"
+            android:text="R$ 5,4324324324"
+            android:textColor="@color/colorRed" />
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_category"
+            android:layout_alignStart="@+id/txt_category"
+            android:layout_alignLeft="@+id/txt_category"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="143dp"
+            android:layout_marginBottom="7dp"
+            android:layout_toStartOf="@+id/txt_market"
+            android:layout_toLeftOf="@+id/txt_market"
+            android:text="06/01/2000"
+            android:textColor="@color/colorGray50Op" />
+
+        <TextView
+            android:id="@+id/txt_market"
+            android:layout_width="149dp"
+            android:layout_height="17dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="76dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="7dp"
+            android:text="MARCAR COMO PAGA"
+            android:textColor="@color/colorAccent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/price_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="60dp"
+            android:src="@drawable/monetization" />
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

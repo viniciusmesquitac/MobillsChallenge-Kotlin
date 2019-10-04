@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InsertIncomesActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_incomes"
+        app:title="Adicionar Receita"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLightGreen"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editDescription_income"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Descrição"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editPrice_income"
+        app:layout_constraintStart_toStartOf="@+id/editPrice_income"
+        app:layout_constraintTop_toBottomOf="@+id/editPrice_income" />
+
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/editDescription_income"
+        app:layout_constraintEnd_toStartOf="@+id/editDescription_income"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editDescription_income"
+        app:srcCompat="@drawable/description" />
+
+    <EditText
+        android:id="@+id/editPrice_income"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:ems="10"
+        android:hint="Preço"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_incomes" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/editPrice_income"
+        app:layout_constraintEnd_toStartOf="@+id/editPrice_income"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editPrice_income"
+        app:srcCompat="@drawable/money" />
+
+    <EditText
+        android:id="@+id/editDate_income"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="Data"
+        android:inputType="date"
+        android:selectAllOnFocus="false"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription_income"
+        app:layout_constraintStart_toStartOf="@+id/editDescription_income"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription_income" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/editDate_income"
+        app:layout_constraintEnd_toStartOf="@+id/editDate_income"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editDate_income"
+        app:srcCompat="@drawable/date" />
+
+    <Button
+        android:id="@+id/btnCreateIncome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="42dp"
+        android:background="@drawable/button_rounded"
+        android:backgroundTint="@color/colorLightGreen"
+        android:text="Adicionar"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mySpinner_income" />
+
+    <Spinner
+        android:id="@+id/mySpinner_income"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:prompt="@string/spinner_category"
+        android:layout_marginTop="16dp"
+        android:entries="@array/categories"
+        android:outlineProvider="bounds"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/editDate_income"
+        app:layout_constraintStart_toStartOf="@+id/editDate_income"
+        app:layout_constraintTop_toBottomOf="@+id/editDate_income" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/mySpinner_income"
+        app:layout_constraintEnd_toStartOf="@+id/mySpinner_income"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mySpinner_income"
+        app:srcCompat="@drawable/category" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

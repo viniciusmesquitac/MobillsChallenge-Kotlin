@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_call"
+        android:icon="@drawable/money"
+        android:iconTint="@color/colorBlue"
+        android:title="Despesas" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/income"
+        android:iconTint="@color/colorBlue"
+        android:title="Receitas" />
+
+    <item
+        android:id="@+id/navigation_insight"
+        android:icon="@drawable/insight"
+        android:iconTint="@color/colorBlue"
+        android:title="Insight" />
+
+</menu>

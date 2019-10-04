@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">FinancialApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="spinner_category">Categorias</string>
+    <string name="info_despesa">Nenhum item de despesa foi adicionado ainda, clique no botão (+) para adicionar!</string>
+    <string name="info_receita">Nenhum item de receita foi adicionado ainda, clique no botão (+) para adicionar!</string>
+
+
+    <string-array name="categories">
+        <item>Casa</item>
+        <item>Alimentação</item>
+        <item>Transporte</item>
+    </string-array>
+</resources>
