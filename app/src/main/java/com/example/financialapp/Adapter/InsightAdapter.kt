@@ -86,7 +86,7 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
                         }
                     }
                     expensesList.forEach {
-                        
+
                     }
                 }
     }
