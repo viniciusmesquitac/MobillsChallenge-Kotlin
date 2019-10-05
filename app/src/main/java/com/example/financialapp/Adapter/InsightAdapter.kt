@@ -7,14 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.financialapp.Fragments.InsightFragment
+import com.example.financialapp.Model.Expense
 import com.example.financialapp.R
+import com.example.financialapp.Service.FirebaseRequest
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
+import kotlinx.android.synthetic.main.fragment_insight.*
+import kotlinx.android.synthetic.main.geral_state.*
 import kotlinx.android.synthetic.main.pie_chart_item.*
 
 class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private lateinit var firebaseRequest: FirebaseRequest
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
 
@@ -25,6 +30,7 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
             rowView = inflater.inflate(R.layout.pie_chart_item, p2, false)
             val pieChartView = rowView.findViewById(R.id.pieChartView) as PieChart
 
+            getDataSource()
             pieChartView.setDrawEntryLabels(false)
             pieChartView.setUsePercentValues(true)
             pieChartView.description = null
@@ -35,6 +41,10 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
 
         return rowView!!
 
+    }
+
+    private fun getDataSource() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun getViewTypeCount(): Int {
@@ -62,4 +72,22 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
     }
 
 
+    fun fetchDataExpenses(tv: Int) {
+        val expensesList = mutableListOf<Expense>()
+        var totalPrice = 0
+        var totalValue = tv
+        firebaseRequest
+                .fetchFirebase("despesas")
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        if (document.exists()) {
+                            val payment = document.toObject(Expense::class.java)
+                            expensesList.add(payment)
+                        }
+                    }
+                    expensesList.forEach {
+                        
+                    }
+                }
+    }
 }

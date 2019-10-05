@@ -13,6 +13,7 @@ import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_insert_expenses.*
 import kotlinx.android.synthetic.main.activity_insert_incomes.*
 import java.sql.Timestamp
+import java.text.NumberFormat
 import java.util.*
 
 class InsertIncomesActivity : AppCompatActivity(), IInsertView {
@@ -40,9 +41,10 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
                 insertPresenter.verifyEditTexts(editPrice_income, editDescription_income, editDate_income)
             }
             else {
+                val nf = NumberFormat.getInstance()
                 val clean = price.replace("R$", "")
                 val cleanPrice = clean.replace(",", "")
-                val p = cleanPrice.toDouble()
+                val p = nf.parse(cleanPrice).toDouble()
 
                 firebaseRequest.saveIncomeInFirebase("receitas",p, descript, pickerDate)
 

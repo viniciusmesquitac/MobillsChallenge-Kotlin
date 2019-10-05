@@ -12,6 +12,7 @@ import com.example.financialapp.View.IInsertView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_insert_expenses.*
 import java.sql.Timestamp
+import java.text.NumberFormat
 import java.util.*
 
 class InsertExpensesActivity : AppCompatActivity(), IInsertView {
@@ -43,9 +44,10 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
                 insertPresenter.verifyEditTexts(editPrice, editDate, editDescription)
             }else {
 
+                val nf = NumberFormat.getInstance()
                 val clean = price.replace("R$", "")
                 val cleanPrice = clean.replace(",", "")
-                val p = cleanPrice.toDouble()
+                val p = nf.parse(cleanPrice).toDouble()
 
                 firebaseRequest.saveExpenseInFirebase("despesas",p,
                         descript,
@@ -59,7 +61,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
             }
         }
 
-         editPrice.addTextChangedListener(CurrencyTextWatcher(editPrice))
+        editPrice.addTextChangedListener(CurrencyTextWatcher(editPrice))
 
         editDate.setOnClickListener {
             insertPresenter.clickDataPicker(this, it)

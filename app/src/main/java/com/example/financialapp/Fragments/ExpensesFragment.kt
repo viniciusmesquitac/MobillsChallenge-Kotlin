@@ -30,6 +30,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     private lateinit var adapter: ExpensesAdapter
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var firebaseRequest: FirebaseRequest
+    var teste = 0.0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -127,7 +128,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
         expensesList.forEach {
             totalExpenses += it.price.toInt()
         }
-
+        teste = totalExpenses
         val nf = NumberFormat.getInstance()
         val input = nf.format(totalExpenses)
         txt_total_expenses?.setText(input)

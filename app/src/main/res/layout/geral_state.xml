@@ -34,12 +34,12 @@
             android:text="Despesas" />
 
         <TextView
+            android:id="@+id/expenses_geral_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:textColor="@color/colorRed"
-            android:layout_marginTop="40dp"
-            android:text="R$ 1.000,00" />
+            android:layout_marginTop="40dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,12 +49,12 @@
             android:text="Receitas" />
 
         <TextView
+            android:id="@+id/incomes_geral_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:textColor="@color/colorLightGreen"
-            android:layout_marginTop="70dp"
-            android:text="R$ 1.000,00" />
+            android:layout_marginTop="70dp" />
 
     </androidx.cardview.widget.CardView>
 

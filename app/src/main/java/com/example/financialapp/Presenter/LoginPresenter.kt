@@ -40,6 +40,7 @@ class LoginPresenter (internal var iLoginView: ILoginView): InterfaceLoginPresen
                         Log.d("teste", "login success")
                         iLoginView.onLoginResult("Login Aprovado!")
                         val intent = Intent(context, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         context.startActivity(intent)
                     }
                 }.addOnFailureListener{

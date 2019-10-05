@@ -2,34 +2,43 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="200dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="388dp"
-        android:layout_height="235dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:clickable="false"
         android:layout_marginBottom="8dp"
+        android:clickable="false"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textView_chart"
             android:layout_width="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
-            android:text="Despesas por Categoria"/>
-
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="7dp"
+            android:textSize="11dp"
+            android:layout_marginTop="8dp"
+            android:text="Despesas por Categoria" />
 
         <com.github.mikephil.charting.charts.PieChart
+
             android:id="@+id/pieChartView"
-            android:layout_width="316dp"
-            android:layout_height="215dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/cardView3"
+            android:layout_alignTop="@+id/cardView3"
             android:layout_alignBottom="@+id/cardView3"
-            android:layout_gravity="center">
+            android:layout_gravity="bottom"
+            android:paddingTop="50dp">
 
         </com.github.mikephil.charting.charts.PieChart>
 
