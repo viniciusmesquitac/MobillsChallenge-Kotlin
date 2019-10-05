@@ -14,15 +14,11 @@ data class Expense (
     var price: Double,
     val date: Date,
     val paid: Boolean,
-    var category: String?
+    var category: String?,
+    var image: String?
 ) : Parcelable {
 
-    constructor() : this("",
-            "",
-            0.0,
-            Timestamp(System.currentTimeMillis()),
-            false,
-            "")
+    constructor() : this("","",0.0,Timestamp(System.currentTimeMillis()),false,"","")
 
     constructor(parcel: Parcel) : this(
             parcel.readString(),
@@ -30,6 +26,7 @@ data class Expense (
             parcel.readDouble(),
             parcel.readSerializable() as Date,
             parcel.readBoolean(),
+            parcel.readString(),
             parcel.readString()) {
     }
 
@@ -40,6 +37,7 @@ data class Expense (
         parcel.writeSerializable(date)
         parcel.writeBoolean(paid)
         parcel.writeString(category)
+        parcel.writeString(image)
     }
 
     override fun describeContents(): Int {

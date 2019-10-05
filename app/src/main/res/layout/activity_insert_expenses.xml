@@ -63,7 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="42dp"
         android:background="@drawable/button_rounded"
         android:backgroundTint="@color/colorRed"
@@ -136,6 +136,43 @@
         app:layout_constraintTop_toTopOf="@+id/mySpinner"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/category" />
+
+    <ImageButton
+        android:id="@+id/btnAddPhoto"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:background="@drawable/button_rounded"
+        android:backgroundTint="@color/colorGray50Op"
+        android:src="@drawable/add_photo"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_attach"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_attach"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/imageView_attach"
+        app:layout_constraintTop_toTopOf="@+id/imageView_attach"
+        app:layout_constraintVertical_bias="0.241" />
+
+    <ImageView
+        android:id="@+id/imageView_attach"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreatePayment"
+        app:layout_constraintStart_toStartOf="@+id/btnCreatePayment"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreatePayment"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[10]" />
+
+    <TextView
+        android:id="@+id/txt_addImageDescript"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Insira uma imagem (Opcional)"
+        app:layout_constraintEnd_toEndOf="@+id/btnAddPhoto"
+        app:layout_constraintStart_toStartOf="@+id/btnAddPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddPhoto" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

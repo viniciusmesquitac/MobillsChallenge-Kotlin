@@ -30,7 +30,7 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
             rowView = inflater.inflate(R.layout.pie_chart_item, p2, false)
             val pieChartView = rowView.findViewById(R.id.pieChartView) as PieChart
 
-            getDataSource()
+            //getDataSource()
             pieChartView.setDrawEntryLabels(false)
             pieChartView.setUsePercentValues(true)
             pieChartView.description = null
@@ -44,7 +44,7 @@ class InsightAdapter(context: Context, internal var dataSource: PieData): BaseAd
     }
 
     private fun getDataSource() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun getViewTypeCount(): Int {

@@ -23,12 +23,15 @@ class FirebaseRequest: InterfaceFirestoreRequest {
     }
 
     // SAVE
-    override fun saveExpenseInFirebase(collectionPath: String, price: Double, description: String, date: Date, category: String) {
+    override fun saveExpenseInFirebase(collectionPath: String, price: Double, description: String, date: Date, category: String, image: String) {
 
         val docRef =  db.collection("users/$uid/$collectionPath").document()
         val docId = docRef.id
 
-        val expense = Expense(docId, description, price, date,false, category)
+        var expense = Expense(docId, description, price, date,false, category, "")
+        if(!image.isEmpty()) {
+           expense.image = image
+        }
         docRef.set(expense)
                 .addOnCompleteListener{
                     if(it.isSuccessful) {

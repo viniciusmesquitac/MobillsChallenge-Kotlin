@@ -120,6 +120,7 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
 //                getWindow().setStatusBarColor(Color.parseColor("#054F77"))
             } else if (navigationView.currentFragment is InsightFragment) {
                 fab.visibility = View.GONE
+                toolbar.setTitle("Insight")
 //                getWindow().setStatusBarColor(Color.parseColor("#CCCC00"))
             }
 //

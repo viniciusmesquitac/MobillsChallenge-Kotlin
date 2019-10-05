@@ -89,8 +89,10 @@ class InsightFragment : Fragment() {
                     incomesList.forEach {
                         totalValue += it.price.toInt()
                     }
-                    formatTextCurrency(incomes_geral_state, totalValue)
-                    fetchDataExpenses(totalValue)
+                    if(incomes_geral_state !=null) {
+                        formatTextCurrency(incomes_geral_state, totalValue)
+                        fetchDataExpenses(totalValue)
+                    }
                 }
 
     }
@@ -110,10 +112,12 @@ class InsightFragment : Fragment() {
                     expensesList.forEach {
                         totalPrice -= it.price.toInt()
                     }
-                    formatTextCurrency(expenses_geral_state, totalPrice)
-                    totalValue = tv + totalPrice
-                    formatTextCurrency(txt_total_insight, totalValue)
-                    setPieChart(expensesList)
+                    if (expenses_geral_state !=null || txt_total_insight!=null) {
+                        formatTextCurrency(expenses_geral_state, totalPrice)
+                        totalValue = tv + totalPrice
+                        formatTextCurrency(txt_total_insight, totalValue)
+                        setPieChart(expensesList)
+                    }
                 }
     }
 

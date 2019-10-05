@@ -21,7 +21,7 @@ import com.example.financialapp.View.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_expenses.*
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat

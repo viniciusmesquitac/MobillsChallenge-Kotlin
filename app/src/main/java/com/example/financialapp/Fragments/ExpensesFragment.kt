@@ -18,9 +18,8 @@ import com.example.financialapp.R
 import com.example.financialapp.View.IRecyclerView
 import com.example.financialapp.View.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_expenses.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
@@ -30,11 +29,10 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     private lateinit var adapter: ExpensesAdapter
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var firebaseRequest: FirebaseRequest
-    var teste = 0.0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_expenses, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -128,7 +126,6 @@ class ExpensesFragment : Fragment(), IRecyclerView {
         expensesList.forEach {
             totalExpenses += it.price.toInt()
         }
-        teste = totalExpenses
         val nf = NumberFormat.getInstance()
         val input = nf.format(totalExpenses)
         txt_total_expenses?.setText(input)

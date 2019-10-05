@@ -9,7 +9,7 @@ import java.util.*
 interface InterfaceFirestoreRequest {
     fun fetchFirebase(collectionPath: String): Task<QuerySnapshot>
 
-    fun saveExpenseInFirebase(collectionPath: String, price: Double, description: String, date: Date, category: String)
+    fun saveExpenseInFirebase(collectionPath: String, price: Double, description: String, date: Date, category: String, image: String)
     fun saveIncomeInFirebase(collectionPath: String, price: Double, description: String, date: Date)
 
     fun updateExpenseInFirebase(collectionPath: String, expense: Expense)
