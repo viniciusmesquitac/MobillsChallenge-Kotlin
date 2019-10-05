@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.Adapter.ExpensesAdapter
 import com.example.financialapp.Adapter.IncomesAdapter
+import com.example.financialapp.Model.Expense
 import com.example.financialapp.Model.Income
 
 import com.example.financialapp.R
@@ -31,6 +32,18 @@ class IncomesFragment : Fragment(), IRecyclerView {
     private lateinit var adapter: IncomesAdapter
     private lateinit var incomesList : MutableList<Income>
     private lateinit var firebaseRequest: FirebaseRequest
+
+    companion object {
+        var companionIncomeList = mutableListOf<Income>()
+
+        fun setIncomeList(list: MutableList<Income>) {
+            companionIncomeList = list
+        }
+
+        fun getIncomeList(): MutableList<Income> {
+            return companionIncomeList
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,6 +67,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                         }
                     }
                     adapter = IncomesAdapter(incomesList)
+                    setIncomeList(incomesList)
                     checkAdapterStatus(adapter)
                     recycler_view_income?.adapter = adapter
                     recycler_view_income?.layoutManager = activity?.let { LinearLayoutManager(it) }

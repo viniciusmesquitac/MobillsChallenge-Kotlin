@@ -3,13 +3,12 @@ package com.example.financialapp.Fragments
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
+import com.example.financialapp.Adapter.IncomesAdapter
 import com.example.financialapp.Adapter.InsightAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Model.Income
@@ -19,15 +18,14 @@ import com.example.financialapp.Service.FirebaseRequest
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import kotlinx.android.synthetic.main.fragment_incomes.*
 import kotlinx.android.synthetic.main.fragment_insight.*
 import kotlinx.android.synthetic.main.geral_state.*
-import kotlinx.android.synthetic.main.pie_chart_item.*
 import java.text.NumberFormat
 
 class InsightFragment : Fragment() {
 
-    private lateinit var firebaseRequest: FirebaseRequest
+    private lateinit var db: FirebaseRequest
+    private lateinit var adapter: InsightAdapter
     private lateinit var incomesList : MutableList<Income>
     private lateinit var expensesList : MutableList<Expense>
 
@@ -41,44 +39,25 @@ class InsightFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        firebaseRequest = FirebaseRequest()
+        db = FirebaseRequest()
         val ex = ExpensesFragment()
-        fetchData()
-        setTotalValue()
 
-        var array: ArrayList<PieEntry> = ArrayList()
+        incomesList = mutableListOf<Income>()
+        expensesList = mutableListOf<Expense>()
 
-        array.add(PieEntry(2F, "Alimentação"))
-        array.add(PieEntry(3F, "transporte"))
-        array.add(PieEntry(3F, "transporte"))
+        if (IncomesFragment.getIncomeList().isEmpty()) {
+            fetchDataIncomes()
+        }
+        if(ExpensesFragment.getExpenseList().isEmpty()) {
+            fetchDataExpenses()
+        }
 
-
-        var colorArray = intArrayOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.RED, Color.MAGENTA)
-
-        val pieDataSet: PieDataSet = PieDataSet(array, "")
-
-        pieDataSet.setColors(colorArray, 100)
-
-        val pieData = PieData(pieDataSet)
-
-        val adapter = InsightAdapter(activity!!, pieData)
+        adapter = InsightAdapter(activity!!)
         list_insight.adapter = adapter
     }
 
-    private fun setTotalValue() {
-
-
-
-
-    }
-
-    private fun fetchData() {
-        incomesList = mutableListOf<Income>()
-        expensesList = mutableListOf<Expense>()
-        var totalValue = 0
-
-        firebaseRequest
-                .fetchFirebase("receitas")
+    private fun fetchDataIncomes() {
+        db.fetchFirebase("receitas")
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         if (document.exists()) {
@@ -86,22 +65,13 @@ class InsightFragment : Fragment() {
                             incomesList.add(payment)
                         }
                     }
-                    incomesList.forEach {
-                        totalValue += it.price.toInt()
-                    }
-                    if(incomes_geral_state !=null) {
-                        formatTextCurrency(incomes_geral_state, totalValue)
-                        fetchDataExpenses(totalValue)
-                    }
+                    IncomesFragment.setIncomeList(incomesList)
+                    adapter.notifyDataSetChanged()
                 }
-
     }
 
-    fun fetchDataExpenses(tv: Int) {
-        var totalPrice = 0
-        var totalValue = tv
-        firebaseRequest
-                .fetchFirebase("despesas")
+    fun fetchDataExpenses() {
+        db.fetchFirebase("despesas")
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         if (document.exists()) {
@@ -109,23 +79,10 @@ class InsightFragment : Fragment() {
                             expensesList.add(payment)
                         }
                     }
-                    expensesList.forEach {
-                        totalPrice -= it.price.toInt()
-                    }
-                    if (expenses_geral_state !=null || txt_total_insight!=null) {
-                        formatTextCurrency(expenses_geral_state, totalPrice)
-                        totalValue = tv + totalPrice
-                        formatTextCurrency(txt_total_insight, totalValue)
-                        setPieChart(expensesList)
-                    }
+                    ExpensesFragment.setExpenseList(expensesList)
+                    adapter.notifyDataSetChanged()
                 }
     }
-
-
-    fun setPieChart(list: MutableList<Expense>) {
-
-    }
-
 
     fun formatTextCurrency(textView: TextView, value: Int) {
         val nf = NumberFormat.getInstance()

@@ -30,6 +30,18 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var firebaseRequest: FirebaseRequest
 
+
+    companion object {
+        var companionExpenseList = mutableListOf<Expense>()
+
+        fun setExpenseList(number: MutableList<Expense>) {
+            companionExpenseList = number
+        }
+
+        fun getExpenseList(): MutableList<Expense> {
+            return companionExpenseList
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_expenses, container, false)
@@ -51,6 +63,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                     }
                 }
             adapter = ExpensesAdapter(expensesList)
+            setExpenseList(expensesList)
             checkAdapterStatus(adapter)
             recycler_view?.adapter = adapter
             recycler_view?.layoutManager = activity?.let { LinearLayoutManager(it) }
@@ -126,6 +139,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
         expensesList.forEach {
             totalExpenses += it.price.toInt()
         }
+
         val nf = NumberFormat.getInstance()
         val input = nf.format(totalExpenses)
         txt_total_expenses?.setText(input)

@@ -13,4 +13,11 @@
         <item>Alimentação</item>
         <item>Transporte</item>
     </string-array>
+
+    <string-array name="categories_incomes">
+        <item>Casa</item>
+        <item>Alimentação</item>
+        <item>Transporte</item>
+    </string-array>
+
 </resources>
