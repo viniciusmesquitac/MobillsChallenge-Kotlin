@@ -46,7 +46,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
         val insertPresenter = InsertPresenter(this)
 
         // MARK - SET CLICK EVENTS
-        
+
         btnCreatePayment.setOnClickListener {
             val price = editPrice.text.toString()
             val descript = editDescription.text.toString()
@@ -58,7 +58,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
             } else if (selectedUri != null) {
                 val filename = UUID.randomUUID().toString()
                 val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
-                print(selectedUri)
+
                 ref.putFile(selectedUri!!)
                         .addOnSuccessListener(OnSuccessListener {
                             ref.downloadUrl.addOnSuccessListener {
