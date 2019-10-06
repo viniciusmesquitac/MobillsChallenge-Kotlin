@@ -58,6 +58,8 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
             } else if (selectedUri != null) {
                 val filename = UUID.randomUUID().toString()
                 val ref = FirebaseStorage.getInstance().getReference("/images/$filename")
+                btnCreatePayment.isEnabled = false
+                btnCreatePayment.isClickable = false
 
                 ref.putFile(selectedUri!!)
                         .addOnSuccessListener(OnSuccessListener {
@@ -68,6 +70,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
                         })
             } else {
                 saveExpenseInFirebase(price, descript, category)
+                btnCreatePayment.isClickable = false
             }
         }
 

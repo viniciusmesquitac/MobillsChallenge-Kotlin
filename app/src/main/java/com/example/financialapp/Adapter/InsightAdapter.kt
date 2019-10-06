@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_insight.*
 import kotlinx.android.synthetic.main.geral_state.*
 import kotlinx.android.synthetic.main.pie_chart_item.*
 
-class InsightAdapter(context: Context): BaseAdapter() {
+class InsightAdapter(internal var context: Context): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var incomeList: MutableList<Income>
@@ -40,6 +40,7 @@ class InsightAdapter(context: Context): BaseAdapter() {
             rowView = inflater.inflate(R.layout.geral_state, p2, false)
             val expense_state = rowView.findViewById(R.id.expenses_geral_state) as TextView
             val income_state = rowView.findViewById(R.id.incomes_geral_state) as TextView
+
             setGeralVisionLayout(expense_state, income_state)
         }
         else if(p0 == 1) {
@@ -63,6 +64,7 @@ class InsightAdapter(context: Context): BaseAdapter() {
         income_state.setText(totalIncome.toString())
         expense_state.setText(totalExpense.toString())
 
+        InsightFragment.totalValue = totalIncome + totalExpense
 
     }
 
@@ -95,7 +97,6 @@ class InsightAdapter(context: Context): BaseAdapter() {
         pieDataSet.setColors(colorArray, 100)
 
         pieChartView.setDrawEntryLabels(false)
-        pieChartView.setUsePercentValues(true)
         pieChartView.description = null
         pieChartView.setNoDataTextColor(Color.WHITE)
         //setting data

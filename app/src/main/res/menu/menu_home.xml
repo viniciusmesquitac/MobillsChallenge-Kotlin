@@ -9,11 +9,11 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/settings"
-        android:title="settings" />
+        android:title="Configurações" />
 
     <item
         android:id="@+id/logout"
-        android:title="logout" />
+        android:title="Encerrar Sessão" />
 
 
 

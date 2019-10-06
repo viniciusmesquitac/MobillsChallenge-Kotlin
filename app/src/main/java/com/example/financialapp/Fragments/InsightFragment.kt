@@ -29,6 +29,10 @@ class InsightFragment : Fragment() {
     private lateinit var incomesList : MutableList<Income>
     private lateinit var expensesList : MutableList<Expense>
 
+    companion object {
+        var totalValue = 0.0
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -54,6 +58,7 @@ class InsightFragment : Fragment() {
 
         adapter = InsightAdapter(activity!!)
         list_insight.adapter = adapter
+        txt_total_insight.setText(totalValue.toString())
     }
 
     private fun fetchDataIncomes() {
@@ -65,6 +70,7 @@ class InsightFragment : Fragment() {
                             incomesList.add(payment)
                         }
                     }
+                    txt_total_insight.setText(totalValue.toString())
                     IncomesFragment.setIncomeList(incomesList)
                     adapter.notifyDataSetChanged()
                 }
@@ -80,6 +86,7 @@ class InsightFragment : Fragment() {
                         }
                     }
                     ExpensesFragment.setExpenseList(expensesList)
+                    txt_total_insight.setText(totalValue.toString())
                     adapter.notifyDataSetChanged()
                 }
     }

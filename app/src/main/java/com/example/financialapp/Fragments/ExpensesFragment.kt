@@ -1,6 +1,7 @@
 package com.example.financialapp.Fragments
 
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.example.financialapp.R
 import com.example.financialapp.View.IRecyclerView
 import com.example.financialapp.View.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
 import kotlinx.android.synthetic.main.fragment_expenses.*
 import java.text.NumberFormat
@@ -28,7 +30,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
 
     private lateinit var adapter: ExpensesAdapter
     private lateinit var expensesList : MutableList<Expense>
-    private lateinit var firebaseRequest: FirebaseRequest
+    private lateinit var db: FirebaseRequest
 
 
     companion object {
@@ -51,10 +53,10 @@ class ExpensesFragment : Fragment(), IRecyclerView {
         super.onActivityCreated(savedInstanceState)
 
         expensesList = mutableListOf<Expense>()
-        firebaseRequest = FirebaseRequest()
+        db = FirebaseRequest()
 
         // MARK - FETCH ALL EXPENSES AND SET IN RECYCLER VIEW
-        firebaseRequest.fetchFirebase("despesas")
+        db.fetchFirebase("despesas")
                 .addOnSuccessListener { documents ->
                 for (document in documents) {
                     if(document.exists()) {
@@ -97,7 +99,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                     expense.price = view_dialog.edit_price_dialog.text.toString().toDouble()
                     expense.description = view_dialog.edit_description_dialog.text.toString()
                     expense.category = view_dialog.mySpinner_dialog.selectedItem.toString()
-                    firebaseRequest.updateExpenseInFirebase("despesas", expense)
+                    db.updateExpenseInFirebase("despesas", expense)
                     adapter.notifyDataSetChanged()
                     setTotalValue()
                     dialog?.dismiss()
@@ -105,8 +107,13 @@ class ExpensesFragment : Fragment(), IRecyclerView {
 
                 val btnDelete = view_dialog.findViewById<Button>(R.id.btnDeleteExpense)
                 btnDelete.setOnClickListener {
-                    firebaseRequest.deleteExpenseInFirebase("despesas", expense)
                     expensesList.remove(expense)
+                    db.deleteExpenseInFirebase("despesas", expense)
+
+                    // SNACK MESSAGE
+                    snackMessage(activity!!, "Despesa deletada!", expense)
+
+
                     adapter.notifyDataSetChanged()
                     setTotalValue()
                     dialog?.dismiss()
@@ -152,5 +159,16 @@ class ExpensesFragment : Fragment(), IRecyclerView {
         }
     }
 
+    fun snackMessage(activity: Activity, msg: String, expense: Expense) {
+        val rootView = activity.window.decorView.findViewById(android.R.id.content) as View
+        val snack = Snackbar.make(rootView, msg, Snackbar.LENGTH_SHORT)
+
+        snack.setAction("DESFAZER", View.OnClickListener {
+            expensesList.add(expense)
+            db.updateExpenseInFirebase("despesas", expense)
+            adapter.notifyDataSetChanged()
+        })
+        snack.show()
+    }
 
 }

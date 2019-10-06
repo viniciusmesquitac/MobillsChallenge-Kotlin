@@ -20,6 +20,7 @@ import android.view.View
 import com.example.financialapp.Fragments.IncomesFragment
 import com.example.financialapp.Fragments.InsightFragment
 import com.example.financialapp.View.INavBottomView
+import com.google.android.material.snackbar.Snackbar
 
 
 class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
@@ -95,6 +96,10 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
         }
         R.id.logout -> {
             loginPresenter.onLogout(this)
+            true
+        }
+
+        R.id.settings -> {
             true
         }
 

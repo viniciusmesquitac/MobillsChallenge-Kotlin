@@ -61,11 +61,13 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
                             ref.downloadUrl.addOnSuccessListener {
                                 val imageUrl = it.toString()
                                 saveIncomeInFirebase(price, descript, category, imageUrl)
+                                btnCreateIncome?.isClickable = false
                             }
                         })
 
             } else {
                 saveIncomeInFirebase(price,descript,category)
+                btnCreateIncome?.isClickable = false
             }
         }
 
