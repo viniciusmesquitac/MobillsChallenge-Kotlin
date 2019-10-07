@@ -107,7 +107,7 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
         val timestamp = Timestamp(calendar.timeInMillis)
         pickerDate = Date(timestamp.time)
 
-        editDate_income.setText("" + day+"" + "-" + month + "-" + year)
+        editDate_income.setText("$day/$month/$year")
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -18,13 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorBlue"
+            android:elevation="0dp"
+            android:iconTint="@color/colorWhite"
             android:theme="?attr/actionBarTheme"
             android:visibility="visible"
-            android:iconTint="@color/colorWhite"
-            app:title="FinancialApp"
-            android:elevation="0dp"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:menu="@menu/menu_home">
+            app:layout_scrollFlags="enterAlways|scroll|snap"
+            app:menu="@menu/menu_home"
+            app:title="Despesas">
 
         </androidx.appcompat.widget.Toolbar>
 

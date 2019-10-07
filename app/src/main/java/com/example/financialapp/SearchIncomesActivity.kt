@@ -2,14 +2,11 @@ package com.example.financialapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.financialapp.Adapter.ExpensesAdapter
 import com.example.financialapp.Adapter.IncomesAdapter
-import com.example.financialapp.Model.Expense
 import com.example.financialapp.Model.Income
 import com.example.financialapp.Service.FirebaseRequest
-import com.example.financialapp.View.NavigationBottomView
-import kotlinx.android.synthetic.main.activity_search_expenses.*
 import kotlinx.android.synthetic.main.activity_search_incomes.*
 
 class SearchIncomesActivity : AppCompatActivity() {
@@ -43,5 +40,26 @@ class SearchIncomesActivity : AppCompatActivity() {
         rv_search_incomes?.adapter = adapter
         rv_search_incomes?.layoutManager = LinearLayoutManager(this)
 
+        searchView_incomes.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                adapter.filter.filter(p0)
+                return false
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                adapter.filter.filter(p0)
+                return false
+            }
+
+        })
+
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        return true
     }
 }

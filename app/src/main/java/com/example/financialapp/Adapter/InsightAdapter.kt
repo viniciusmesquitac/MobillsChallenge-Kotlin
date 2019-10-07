@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.fragment_insight.*
 import kotlinx.android.synthetic.main.geral_state.*
 import kotlinx.android.synthetic.main.pie_chart_item.*
+import java.text.NumberFormat
 
 class InsightAdapter(internal var context: Context): BaseAdapter() {
 
@@ -61,8 +62,13 @@ class InsightAdapter(internal var context: Context): BaseAdapter() {
         incomeList.forEach {
             totalIncome += it.price
         }
-        income_state.setText(totalIncome.toString())
-        expense_state.setText(totalExpense.toString())
+
+        val nf = NumberFormat.getInstance()
+        val income_value = nf.format(totalIncome)
+        val expense_value = nf.format(totalExpense)
+
+        income_state.setText(income_value)
+        expense_state.setText(expense_value)
 
         InsightFragment.totalValue = totalIncome + totalExpense
 

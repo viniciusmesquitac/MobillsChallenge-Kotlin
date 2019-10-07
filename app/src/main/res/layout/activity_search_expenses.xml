@@ -17,16 +17,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editSearch"
+        <SearchView
+            android:id="@+id/searchView_expenses"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:hint="Procurar Por Descrição.."
-            android:imeOptions="actionSearch"
             android:focusable="true"
+            android:hint="Procurar Por Descrição.."
+            android:iconifiedByDefault="false"
+            android:imeOptions="actionSearch"
             android:inputType="text"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:searchHintIcon="@null"
+            android:searchIcon="@null"
+            app:searchIcon="@null"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="8dp" />
 
     </androidx.appcompat.widget.Toolbar>
 

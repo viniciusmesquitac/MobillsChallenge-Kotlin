@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
+        app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
         android:clickable="false"

@@ -32,7 +32,6 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var db: FirebaseRequest
 
-
     companion object {
         var companionExpenseList = mutableListOf<Expense>()
 
@@ -44,6 +43,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
             return companionExpenseList
         }
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_expenses, container, false)
@@ -89,11 +89,11 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 }
                 view_dialog.mySpinner_dialog.setSelection(0)
 
-                val close = view_dialog.findViewById<ImageView>(R.id.iv_close)
+                val close = view_dialog.findViewById(R.id.iv_close) as ImageView
                 close.setOnClickListener {
                     dialog?.dismiss()
                 }
-                val btnUpdate = view_dialog.findViewById<Button>(R.id.btnUpdateExpense)
+                val btnUpdate = view_dialog.findViewById(R.id.btnUpdateExpense) as Button
 
                 btnUpdate.btnUpdateExpense.setOnClickListener {
                     expense.price = view_dialog.edit_price_dialog.text.toString().toDouble()
@@ -105,7 +105,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                     dialog?.dismiss()
                 }
 
-                val btnDelete = view_dialog.findViewById<Button>(R.id.btnDeleteExpense)
+                val btnDelete = view_dialog.findViewById(R.id.btnDeleteExpense) as Button
                 btnDelete.setOnClickListener {
                     expensesList.remove(expense)
                     db.deleteExpenseInFirebase("despesas", expense)
@@ -144,7 +144,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
 
         var totalExpenses = 0.0
         expensesList.forEach {
-            totalExpenses += it.price.toInt()
+            totalExpenses -= it.price.toInt()
         }
 
         val nf = NumberFormat.getInstance()

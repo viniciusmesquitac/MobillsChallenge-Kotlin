@@ -17,16 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editSearch"
+        <SearchView
+            android:id="@+id/searchView_incomes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:iconifiedByDefault="false"
+            android:searchHintIcon="@null"
+            android:searchIcon="@null"
+            app:searchIcon="@null"
+            android:padding="8dp"
             android:hint="Procurar Por Descrição.."
             android:imeOptions="actionSearch"
             android:focusable="true"
-            android:inputType="text"
-            android:padding="8dp" />
+            android:inputType="text" />
 
     </androidx.appcompat.widget.Toolbar>
 

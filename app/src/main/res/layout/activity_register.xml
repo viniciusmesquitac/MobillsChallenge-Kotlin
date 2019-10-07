@@ -11,24 +11,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Back"
+        android:background="@drawable/button_rounded"
+        android:text="JÁ SOU CADASTRADO"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@+id/btnRegister"
         app:layout_constraintStart_toStartOf="@+id/btnRegister"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegister"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/button_rounded"/>
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Register"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_rounded"
+        android:text="REGISTRAR!"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="@+id/editPassword"
         app:layout_constraintStart_toStartOf="@+id/editPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editPassword"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/button_rounded"/>
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
 
     <EditText
         android:id="@+id/editUsername"

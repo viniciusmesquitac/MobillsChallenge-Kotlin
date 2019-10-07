@@ -51,14 +51,33 @@ class InsightFragment : Fragment() {
 
         if (IncomesFragment.getIncomeList().isEmpty()) {
             fetchDataIncomes()
-        }
+        } else
         if(ExpensesFragment.getExpenseList().isEmpty()) {
             fetchDataExpenses()
+        } else {
+            setTotalValue()
         }
+
 
         adapter = InsightAdapter(activity!!)
         list_insight.adapter = adapter
-        txt_total_insight.setText(totalValue.toString())
+    }
+
+    private fun setTotalValue() {
+        expensesList = ExpensesFragment.getExpenseList()
+        incomesList = IncomesFragment.getIncomeList()
+        var totalExpense = 0.0
+        var totalIncome = 0.0
+        expensesList.forEach {
+            totalExpense -= it.price
+        }
+        incomesList.forEach {
+            totalIncome += it.price
+        }
+
+        val nf = NumberFormat.getInstance()
+        val total = nf.format(totalIncome + totalExpense)
+        txt_total_insight?.setText(total)
     }
 
     private fun fetchDataIncomes() {
@@ -70,9 +89,12 @@ class InsightFragment : Fragment() {
                             incomesList.add(payment)
                         }
                     }
-                    txt_total_insight?.setText(totalValue.toString())
                     IncomesFragment.setIncomeList(incomesList)
                     adapter.notifyDataSetChanged()
+
+                    val nf = NumberFormat.getInstance()
+                    val total = nf.format(totalValue)
+                    txt_total_insight?.setText(total)
                 }
     }
 
@@ -86,12 +108,15 @@ class InsightFragment : Fragment() {
                         }
                     }
                     ExpensesFragment.setExpenseList(expensesList)
-                    txt_total_insight?.setText(totalValue.toString())
                     adapter.notifyDataSetChanged()
+
+                    val nf = NumberFormat.getInstance()
+                    val total = nf.format(totalValue)
+                    txt_total_insight?.setText(total)
                 }
     }
 
-    fun formatTextCurrency(textView: TextView, value: Int) {
+    fun formatTextCurrency(textView: TextView, value: Double) {
         val nf = NumberFormat.getInstance()
         val input = nf.format(value)
         textView?.setText(input)

@@ -67,13 +67,9 @@ class IncomesFragment : Fragment(), IRecyclerView {
                     adapter = IncomesAdapter(incomesList)
 
                     setIncomeList(incomesList)
-
                     checkAdapterStatus(adapter)
-
                     recycler_view_income?.adapter = adapter
-
                     recycler_view_income?.layoutManager = activity?.let { LinearLayoutManager(it) }
-
                     setTotalValue()
                 }
 
@@ -92,9 +88,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                 // MARK - SETTING EXPENSE DATA IN MODAL
                 with(income) {
                     view_dialog.edit_price_dialog.setText(price.toString())
-
                     view_dialog.edit_description_dialog.setText(description.toString())
-
                     view_dialog.edit_date_dialog.setText(sdf.format(date).toString())
                 }
                 view_dialog.mySpinner_dialog.setSelection(0)

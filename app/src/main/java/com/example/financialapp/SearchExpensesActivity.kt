@@ -2,18 +2,17 @@ package com.example.financialapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financialapp.Adapter.ExpensesAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Service.FirebaseRequest
-import com.example.financialapp.View.NavigationBottomView
 import kotlinx.android.synthetic.main.activity_search_expenses.*
 
 class SearchExpensesActivity : AppCompatActivity() {
 
     private lateinit var adapter: ExpensesAdapter
     private lateinit var expensesList : MutableList<Expense>
-    internal lateinit var navigationView: NavigationBottomView
     private lateinit var db: FirebaseRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +39,19 @@ class SearchExpensesActivity : AppCompatActivity() {
         rv_search?.adapter = adapter
         rv_search?.layoutManager = LinearLayoutManager(this@SearchExpensesActivity)
 
+       searchView_expenses.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+
+           override fun onQueryTextSubmit(p0: String?): Boolean {
+               adapter.filter.filter(p0)
+               return false
+           }
+
+           override fun onQueryTextChange(p0: String?): Boolean {
+               adapter.filter.filter(p0)
+               return false
+           }
+
+       })
 
     }
 
