@@ -86,8 +86,8 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                     view_dialog.edit_price_dialog.setText(price.toString())
                     view_dialog.edit_description_dialog.setText(description.toString())
                     view_dialog.edit_date_dialog.setText(sdf.format(date).toString())
+                    setSpinnerSelection(category!!, view_dialog)
                 }
-                view_dialog.mySpinner_dialog.setSelection(0)
 
                 val close = view_dialog.findViewById(R.id.iv_close) as ImageView
                 close.setOnClickListener {
@@ -123,6 +123,15 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 dialog?.show()
             }
         })
+    }
+
+    private fun setSpinnerSelection(category: String, view: View) {
+        when(category) {
+            "Casa" -> view.mySpinner_dialog.setSelection(0)
+            "Alimentação" -> view.mySpinner_dialog.setSelection(1)
+            "Transporte" -> view.mySpinner_dialog.setSelection(2)
+            "Outras receitas" -> view.mySpinner_dialog.setSelection(3)
+        }
     }
 
     override fun RecyclerView.addOnItemClickListener(onClickListener: OnItemClickListener) {

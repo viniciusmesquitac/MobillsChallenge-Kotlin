@@ -12,12 +12,14 @@
         <item>Casa</item>
         <item>Alimentação</item>
         <item>Transporte</item>
+        <item>Outro</item>
     </string-array>
 
     <string-array name="categories_incomes">
-        <item>Casa</item>
-        <item>Alimentação</item>
-        <item>Transporte</item>
+        <item>Salários</item>
+        <item>Emprestimos</item>
+        <item>Investimentos</item>
+        <item>Outras receitas</item>
     </string-array>
 
 </resources>

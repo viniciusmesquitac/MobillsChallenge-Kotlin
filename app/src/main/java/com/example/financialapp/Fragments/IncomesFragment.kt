@@ -81,7 +81,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                 val income = incomesList[position]
                 val dialog = activity?.let { BottomSheetDialog(it) }
 
-                val view_dialog = layoutInflater.inflate(R.layout.dialog_info_expenses, null)
+                val view_dialog = layoutInflater.inflate(R.layout.dialog_info_incomes, null)
 
                 val sdf = SimpleDateFormat("dd/MM/yyyy")
 
@@ -90,8 +90,8 @@ class IncomesFragment : Fragment(), IRecyclerView {
                     view_dialog.edit_price_dialog.setText(price.toString())
                     view_dialog.edit_description_dialog.setText(description.toString())
                     view_dialog.edit_date_dialog.setText(sdf.format(date).toString())
+                    //setSpinnerSelection(category!!, view_dialog)
                 }
-                view_dialog.mySpinner_dialog.setSelection(0)
 
                 val close = view_dialog.findViewById<ImageView>(R.id.iv_close)
                 close.setOnClickListener {
@@ -155,6 +155,15 @@ class IncomesFragment : Fragment(), IRecyclerView {
         val nf = NumberFormat.getInstance()
         val input = nf.format(totalIncomes)
         txt_total_incomes?.setText(input)
+    }
+
+    private fun setSpinnerSelection(category: String, view: View) {
+        when(category) {
+            "Salários" -> view.mySpinner_dialog.setSelection(0)
+            "Emprestimos" -> view.mySpinner_dialog.setSelection(1)
+            "Investimentos" -> view.mySpinner_dialog.setSelection(2)
+            "Outro" -> view.mySpinner_dialog.setSelection(3)
+        }
     }
 
     fun checkAdapterStatus(adapter: IncomesAdapter) {

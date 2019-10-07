@@ -115,7 +115,7 @@
         android:layout_height="50dp"
         android:prompt="@string/spinner_category"
         android:layout_marginTop="16dp"
-        android:entries="@array/categories"
+        android:entries="@array/categories_incomes"
         android:outlineProvider="bounds"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="@+id/editDate_income"
