@@ -13,14 +13,10 @@ import com.example.financialapp.View.ILoginView
 import com.example.financialapp.View.NavigationBottomView
 import kotlinx.android.synthetic.main.activity_home.*
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.view.View
 import com.example.financialapp.Fragments.IncomesFragment
 import com.example.financialapp.Fragments.InsightFragment
 import com.example.financialapp.View.INavBottomView
-import com.google.android.material.snackbar.Snackbar
 
 
 class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
@@ -53,13 +49,13 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
             navigationView.addFragment(fragment, supportFragmentManager)
         }
 
-        val mOnNavigationItemSelectedListener = navigationView.navigationActionListener(supportFragmentManager)
+        val navigationListener = navigationView
+                .navigationActionListener(supportFragmentManager)
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setOnNavigationItemSelectedListener(navigationListener)
 
 
         //SET CLICK ACTIONS
-
         fab.setOnClickListener {
             if(navigationView.currentFragment is ExpensesFragment) {
                 val intent = Intent(this, InsertExpensesActivity::class.java)
@@ -80,12 +76,12 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.btnSearch -> {
             if(navigationView.currentFragment is ExpensesFragment) {
-                val intent = Intent(this, SearchActivity::class.java)
+                val intent = Intent(this, SearchExpensesActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 true
             } else if(navigationView.currentFragment is IncomesFragment){
-                val intent = Intent(this, SearchActivity::class.java)
+                val intent = Intent(this, SearchIncomesActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 true
@@ -114,21 +110,19 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
 //        toolbar.setBackgroundColor(Color.parseColor(color))
 //        fab.setBackgroundColor(Color.parseColor(color))
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if(navigationView.currentFragment is IncomesFragment) {
-                fab.visibility = View.VISIBLE
-                toolbar.setTitle("Receitas")
+        if(navigationView.currentFragment is IncomesFragment) {
+            fab.visibility = View.VISIBLE
+            toolbar.setTitle("Receitas")
 //                getWindow().setStatusBarColor(Color.parseColor("#32CD32"))
-            } else if(navigationView.currentFragment is ExpensesFragment) {
-                fab.visibility = View.VISIBLE
-                toolbar.setTitle("Despesas")
+        } else if(navigationView.currentFragment is ExpensesFragment) {
+            fab.visibility = View.VISIBLE
+            toolbar.setTitle("Despesas")
 //                getWindow().setStatusBarColor(Color.parseColor("#054F77"))
-            } else if (navigationView.currentFragment is InsightFragment) {
-                fab.visibility = View.GONE
-                toolbar.setTitle("Insight")
+        } else if (navigationView.currentFragment is InsightFragment) {
+            fab.visibility = View.GONE
+            toolbar.setTitle("Insight")
 //                getWindow().setStatusBarColor(Color.parseColor("#CCCC00"))
-            }
-//
         }
+
     }
 }

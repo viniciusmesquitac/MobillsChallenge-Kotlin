@@ -70,7 +70,7 @@ class InsightFragment : Fragment() {
                             incomesList.add(payment)
                         }
                     }
-                    txt_total_insight.setText(totalValue.toString())
+                    txt_total_insight?.setText(totalValue.toString())
                     IncomesFragment.setIncomeList(incomesList)
                     adapter.notifyDataSetChanged()
                 }
@@ -86,7 +86,7 @@ class InsightFragment : Fragment() {
                         }
                     }
                     ExpensesFragment.setExpenseList(expensesList)
-                    txt_total_insight.setText(totalValue.toString())
+                    txt_total_insight?.setText(totalValue.toString())
                     adapter.notifyDataSetChanged()
                 }
     }

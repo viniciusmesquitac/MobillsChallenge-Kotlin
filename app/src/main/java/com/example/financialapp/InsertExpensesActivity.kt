@@ -41,12 +41,10 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
 
 
         // MARK: INITIALIZE PRESENTER
-
         firebaseRequest = FirebaseRequest()
         val insertPresenter = InsertPresenter(this)
 
         // MARK - SET CLICK EVENTS
-
         btnCreatePayment.setOnClickListener {
             val price = editPrice.text.toString()
             val descript = editDescription.text.toString()
@@ -109,7 +107,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
         val timestamp = Timestamp(calendar.timeInMillis)
         pickerDate = Date(timestamp.time)
 
-        editDate.setText("" + day+"" + "-" + month + "-" + year)
+        editDate.setText("$day/$month/$year")
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -126,7 +124,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
                 } else {
                     finish()
                 }
-                var bitmap: Bitmap
+                val bitmap: Bitmap
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         val source = ImageDecoder.createSource(this.contentResolver, selectedUri!!)
@@ -134,7 +132,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
                         imageView_attach.setImageBitmap(bitmap)
                         btnAddPhoto.visibility = View.GONE
                     } else {
-                        val bitmap = MediaStore.Images.Media.getBitmap(
+                        bitmap = MediaStore.Images.Media.getBitmap(
                                 this.contentResolver, selectedUri)
                         imageView_attach.setImageBitmap(bitmap)
                         imageView_attach.visibility = View.VISIBLE

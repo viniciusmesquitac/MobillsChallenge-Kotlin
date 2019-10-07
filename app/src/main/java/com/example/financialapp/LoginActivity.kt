@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity(), ILoginView {
 
         btnCreateAccount.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
     }

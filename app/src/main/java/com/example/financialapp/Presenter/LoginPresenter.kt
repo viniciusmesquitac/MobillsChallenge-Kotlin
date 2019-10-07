@@ -16,7 +16,7 @@ class LoginPresenter (internal var iLoginView: ILoginView): InterfaceLoginPresen
         print(uuid)
         if(uuid!=null) {
             val intent = Intent(context, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             context.startActivity(intent)
         }
     }
@@ -24,6 +24,7 @@ class LoginPresenter (internal var iLoginView: ILoginView): InterfaceLoginPresen
     override fun onLogout(context: Activity) {
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(context, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
     }
 
@@ -40,7 +41,7 @@ class LoginPresenter (internal var iLoginView: ILoginView): InterfaceLoginPresen
                         Log.d("teste", "login success")
                         iLoginView.onLoginResult("Login Aprovado!")
                         val intent = Intent(context, HomeActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         context.startActivity(intent)
                     }
                 }.addOnFailureListener{
