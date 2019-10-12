@@ -8,6 +8,9 @@ import com.example.financialapp.Adapter.IncomesAdapter
 import com.example.financialapp.Model.Income
 import com.example.financialapp.Service.FirebaseRequest
 import kotlinx.android.synthetic.main.activity_search_incomes.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class SearchIncomesActivity : AppCompatActivity() {
 
@@ -22,25 +25,17 @@ class SearchIncomesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
-        incomesList = mutableListOf<Income>()
         db = FirebaseRequest()
 
-        db.fetchFirebase("receitas")
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.exists()) {
-                            val payment = document.toObject(Income::class.java)
-                            incomesList.add(payment)
-                        }
-                    }
-                }
+        CoroutineScope(IO).launch {
+            incomesList = db.fetchIncomes()
 
-        adapter = IncomesAdapter(incomesList)
-        rv_search_incomes?.adapter = adapter
-        rv_search_incomes?.layoutManager = LinearLayoutManager(this)
+            adapter = IncomesAdapter(incomesList)
+            rv_search_incomes?.adapter = adapter
+            rv_search_incomes?.layoutManager = LinearLayoutManager(this@SearchIncomesActivity)
+        }
 
-        searchView_incomes.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        searchView_incomes.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 adapter.filter.filter(p0)

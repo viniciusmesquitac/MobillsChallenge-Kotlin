@@ -8,6 +8,9 @@ import com.example.financialapp.Adapter.ExpensesAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Service.FirebaseRequest
 import kotlinx.android.synthetic.main.activity_search_expenses.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 class SearchExpensesActivity : AppCompatActivity() {
 
@@ -22,22 +25,16 @@ class SearchExpensesActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        expensesList = mutableListOf<Expense>()
         db = FirebaseRequest()
 
-        db.fetchFirebase("despesas")
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.exists()) {
-                            val payment = document.toObject(Expense::class.java)
-                            expensesList.add(payment)
-                        }
-                    }
-                }
+        CoroutineScope(IO).launch {
+            expensesList = db.fetchExpense()
 
-        adapter = ExpensesAdapter(expensesList)
-        rv_search?.adapter = adapter
-        rv_search?.layoutManager = LinearLayoutManager(this@SearchExpensesActivity)
+            adapter = ExpensesAdapter(expensesList)
+            rv_search?.adapter = adapter
+            rv_search?.layoutManager = LinearLayoutManager(this@SearchExpensesActivity)
+
+        }
 
        searchView_expenses.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
 
