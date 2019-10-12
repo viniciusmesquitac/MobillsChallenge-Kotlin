@@ -99,7 +99,6 @@ class InsightAdapter(internal var context: Context, internal var incomeList: Mut
 
         var array: ArrayList<PieEntry> = ArrayList()
         
-
         array.add(PieEntry(category1.toFloat(), "Casa"))
         array.add(PieEntry(category2.toFloat(), "Alimentação"))
         array.add(PieEntry(category3.toFloat(), "Transporte"))
