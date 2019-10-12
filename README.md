@@ -16,3 +16,6 @@
 <img width="966.5" src="https://user-images.githubusercontent.com/43412432/66701171-bde81600-eccf-11e9-8c47-409aacfbd5e9.png">
 <img width="966.5" src="https://user-images.githubusercontent.com/43412432/66701168-baed2580-eccf-11e9-8ebc-60250eb51d0e.png">
 
+## License
+
+Exinc is under MIT License. See the [LICENSE](https://github.com/viniciusmesquitac/MobillsChallenge-Kotlin/blob/master/LICENSE) file for more info.
