@@ -7,7 +7,11 @@ import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
 interface InterfaceFirestoreRequest {
+
     fun fetchFirebase(collectionPath: String): Task<QuerySnapshot>
+
+    suspend fun fetchExpense(): MutableList<Expense>
+    suspend fun fetchIncomes(): MutableList<Income>
 
     fun saveExpenseInFirebase(collectionPath: String, price: Double, description: String, date: Date, category: String, image: String)
     fun saveIncomeInFirebase(collectionPath: String, price: Double, description: String, date: Date)

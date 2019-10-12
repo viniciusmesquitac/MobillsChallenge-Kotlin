@@ -32,17 +32,6 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var db: FirebaseRequest
 
-    companion object {
-        var companionExpenseList = mutableListOf<Expense>()
-
-        fun setExpenseList(number: MutableList<Expense>) {
-            companionExpenseList = number
-        }
-
-        fun getExpenseList(): MutableList<Expense> {
-            return companionExpenseList
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -65,7 +54,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                     }
                 }
             adapter = ExpensesAdapter(expensesList)
-            setExpenseList(expensesList)
+            //setExpenseList(expensesList)
             checkAdapterStatus(adapter)
             recycler_view?.adapter = adapter
             recycler_view?.layoutManager = activity?.let { LinearLayoutManager(it) }

@@ -31,18 +31,6 @@ class IncomesFragment : Fragment(), IRecyclerView {
     private lateinit var incomesList : MutableList<Income>
     private lateinit var db: FirebaseRequest
 
-    companion object {
-        var companionIncomeList = mutableListOf<Income>()
-
-        fun setIncomeList(list: MutableList<Income>) {
-            companionIncomeList = list
-        }
-
-        fun getIncomeList(): MutableList<Income> {
-            return companionIncomeList
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_incomes, container, false)
@@ -66,7 +54,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                     }
                     adapter = IncomesAdapter(incomesList)
 
-                    setIncomeList(incomesList)
+                    //setIncomeList(incomesList)
                     checkAdapterStatus(adapter)
                     recycler_view_income?.adapter = adapter
                     recycler_view_income?.layoutManager = activity?.let { LinearLayoutManager(it) }

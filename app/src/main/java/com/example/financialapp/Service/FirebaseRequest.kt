@@ -6,12 +6,34 @@ import com.example.financialapp.Model.Income
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import kotlinx.coroutines.tasks.await
 import java.util.*
 
 class FirebaseRequest: InterfaceFirestoreRequest {
 
     val db = FirebaseFirestore.getInstance()
     val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+    override suspend fun fetchExpense(): MutableList<Expense> {
+
+        val querySnapshot = db.collection("users/$uid/despesas").get().await()
+
+        val expenses = querySnapshot.toObjects(Expense::class.java)
+
+        return expenses
+    }
+
+    override suspend fun fetchIncomes(): MutableList<Income> {
+
+        val querySnapshot = db.collection("users/$uid/receitas").get().await()
+
+        val incomes = querySnapshot.toObjects(Income::class.java)
+
+        return incomes
+
+    }
+
+
 
     // LOAD
     override fun fetchFirebase(collectionPath: String): Task<QuerySnapshot> {

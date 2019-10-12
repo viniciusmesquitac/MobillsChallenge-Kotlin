@@ -21,28 +21,29 @@ import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.fragment_insight.*
 import kotlinx.android.synthetic.main.geral_state.*
 import kotlinx.android.synthetic.main.pie_chart_item.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 
-class InsightAdapter(internal var context: Context): BaseAdapter() {
+class InsightAdapter(internal var context: Context, internal var incomeList: MutableList<Income>, internal var expenseList: MutableList<Expense>): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private lateinit var incomeList: MutableList<Income>
-    private lateinit var expenseList: MutableList<Expense>
-
+    private lateinit var expense_state: TextView
+    private lateinit var income_state: TextView
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-
-        // dataSource
-        incomeList = IncomesFragment.getIncomeList()
-        expenseList = ExpensesFragment.getExpenseList()
 
         var rowView = p1
         if (p0 == 0) {
             rowView = inflater.inflate(R.layout.geral_state, p2, false)
-            val expense_state = rowView.findViewById(R.id.expenses_geral_state) as TextView
-            val income_state = rowView.findViewById(R.id.incomes_geral_state) as TextView
+             expense_state = rowView.findViewById(R.id.expenses_geral_state) as TextView
+             income_state = rowView.findViewById(R.id.incomes_geral_state) as TextView
 
-            setGeralVisionLayout(expense_state, income_state)
+            setIncomesAndExpenses()
+
         }
         else if(p0 == 1) {
             rowView = inflater.inflate(R.layout.pie_chart_item, p2, false)
@@ -53,7 +54,8 @@ class InsightAdapter(internal var context: Context): BaseAdapter() {
 
     }
 
-    private fun setGeralVisionLayout(expense_state: TextView, income_state: TextView) {
+    private fun setIncomesAndExpenses() {
+
         var totalExpense = 0.0
         var totalIncome = 0.0
         expenseList.forEach {
@@ -67,12 +69,19 @@ class InsightAdapter(internal var context: Context): BaseAdapter() {
         val income_value = nf.format(totalIncome)
         val expense_value = nf.format(totalExpense)
 
-        income_state.setText(income_value)
-        expense_state.setText(expense_value)
-
-        InsightFragment.totalValue = totalIncome + totalExpense
+        setTextExpenses(expense_state, expense_value)
+        setTextIncomes(income_state, income_value)
 
     }
+
+    private fun setTextExpenses(expense_state: TextView, expense_value: String){
+        expense_state.setText(expense_value)
+    }
+
+    private fun setTextIncomes(income_state: TextView, income_value: String){
+        income_state.setText(income_value)
+    }
+
 
     private fun setupPieView(rowView: View?) {
         var category1 = 0
