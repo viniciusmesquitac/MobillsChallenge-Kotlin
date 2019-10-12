@@ -1,6 +1,8 @@
 package com.example.financialapp.Fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,10 @@ import com.example.financialapp.Model.Expense
 import com.example.financialapp.Model.Income
 import com.example.financialapp.R
 import com.example.financialapp.Service.FirebaseRequest
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.fragment_insight.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -37,16 +43,22 @@ class InsightFragment : Fragment() {
 
         db = FirebaseRequest()
 
-        incomesList = mutableListOf<Income>()
-        expensesList = mutableListOf<Expense>()
-
         CoroutineScope(IO).launch {
             setTotalValue()
-
-            adapter = InsightAdapter(activity!!, incomesList, expensesList)
-            list_insight.adapter = adapter
         }
 
+    }
+
+    private suspend fun setAdapter(totalExpenses: Double, totalIncomes: Double) {
+        try {
+            withContext(Main) {
+                val dataSet =  createPieDataSet()
+                adapter = InsightAdapter(activity!!, totalExpenses, totalIncomes, dataSet)
+                list_insight.adapter = adapter
+            }
+        } catch (error: Throwable) {
+            Log.d("error", error.toString())
+        }
     }
 
     private suspend fun setTotalValue() {
@@ -63,9 +75,37 @@ class InsightFragment : Fragment() {
             totalIncome += it.price
         }
 
+        setAdapter(totalExpense, totalIncome)
+
         val nf = NumberFormat.getInstance()
         val total = nf.format(totalIncome + totalExpense)
         setText(total)
+    }
+
+
+    private fun createPieDataSet(): PieDataSet {
+
+        var category1 = 0
+        var category2 = 0
+        var category3 = 0
+
+        expensesList.forEach {
+            if (it.category == "Casa") {
+                category1 += 1
+            } else if (it.category == "Alimentação") {
+                category2 += 1
+            } else if (it.category == "Transporte") {
+                category3 += 1
+            }
+        }
+
+        var array: ArrayList<PieEntry> = ArrayList()
+
+        array.add(PieEntry(category1.toFloat(), "Casa"))
+        array.add(PieEntry(category2.toFloat(), "Alimentação"))
+        array.add(PieEntry(category3.toFloat(), "Transporte"))
+        val pieDataSet = PieDataSet(array, "")
+        return pieDataSet
     }
 
 

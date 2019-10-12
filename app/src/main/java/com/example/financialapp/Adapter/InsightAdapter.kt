@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 
-class InsightAdapter(internal var context: Context, internal var incomeList: MutableList<Income>, internal var expenseList: MutableList<Expense>): BaseAdapter() {
+class InsightAdapter(internal var context: Context, var totalExpense: Double, var totalIncome: Double, var pieDataSet: PieDataSet): BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     private lateinit var expense_state: TextView
@@ -56,15 +56,6 @@ class InsightAdapter(internal var context: Context, internal var incomeList: Mut
 
     private fun setIncomesAndExpenses() {
 
-        var totalExpense = 0.0
-        var totalIncome = 0.0
-        expenseList.forEach {
-            totalExpense -= it.price
-        }
-        incomeList.forEach {
-            totalIncome += it.price
-        }
-
         val nf = NumberFormat.getInstance()
         val income_value = nf.format(totalIncome)
         val expense_value = nf.format(totalExpense)
@@ -84,40 +75,17 @@ class InsightAdapter(internal var context: Context, internal var incomeList: Mut
 
 
     private fun setupPieView(rowView: View?) {
-        var category1 = 0
-        var category2 = 0
-        var category3 = 0
-        expenseList.forEach {
-            if (it.category == "Casa") {
-                category1 += 1
-            } else if (it.category == "Alimentação") {
-                category2 += 1
-            } else if (it.category == "Transporte") {
-                category3 += 1
-            }
-        }
-
-        var array: ArrayList<PieEntry> = ArrayList()
-        
-        array.add(PieEntry(category1.toFloat(), "Casa"))
-        array.add(PieEntry(category2.toFloat(), "Alimentação"))
-        array.add(PieEntry(category3.toFloat(), "Transporte"))
-
 
         var colorArray = intArrayOf(Color.BLUE, Color.CYAN, Color.GREEN, Color.RED, Color.MAGENTA)
-
         val pieChartView = rowView?.findViewById(R.id.pieChartView) as PieChart
-        val pieDataSet: PieDataSet = PieDataSet(array, "")
 
         pieDataSet.setColors(colorArray, 100)
-
         pieChartView.setDrawEntryLabels(false)
         pieChartView.description = null
         pieChartView.setNoDataTextColor(Color.WHITE)
-        //setting data
+
         val pieData = PieData(pieDataSet)
         pieChartView.data = pieData
-
     }
 
     override fun getViewTypeCount(): Int {
