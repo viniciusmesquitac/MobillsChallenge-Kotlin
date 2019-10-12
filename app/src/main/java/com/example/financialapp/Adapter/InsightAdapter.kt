@@ -88,17 +88,17 @@ class InsightAdapter(internal var context: Context, internal var incomeList: Mut
         var category2 = 0
         var category3 = 0
         expenseList.forEach {
-             if  (it.category == "Casa") {
-                 category1 += 1
-             } else if  (it.category == "Alimentação") {
-                category2 +=1
-             } else if  (it.category == "Transporte") {
-                 category3+=1
+            if (it.category == "Casa") {
+                category1 += 1
+            } else if (it.category == "Alimentação") {
+                category2 += 1
+            } else if (it.category == "Transporte") {
+                category3 += 1
             }
         }
 
         var array: ArrayList<PieEntry> = ArrayList()
-
+        
         array.add(PieEntry(category1.toFloat(), "Casa"))
         array.add(PieEntry(category2.toFloat(), "Alimentação"))
         array.add(PieEntry(category3.toFloat(), "Transporte"))
