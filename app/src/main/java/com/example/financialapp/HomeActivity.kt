@@ -104,24 +104,20 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
         }
     }
 
+
     @SuppressLint("RestrictedApi")
     override fun configureToolbarColor(color: String) {
 
-//        toolbar.setBackgroundColor(Color.parseColor(color))
-//        fab.setBackgroundColor(Color.parseColor(color))
-
         if(navigationView.currentFragment is IncomesFragment) {
+            //noinspection RestrictedApi
             fab.visibility = View.VISIBLE
             toolbar.setTitle("Receitas")
-//                getWindow().setStatusBarColor(Color.parseColor("#32CD32"))
         } else if(navigationView.currentFragment is ExpensesFragment) {
             fab.visibility = View.VISIBLE
             toolbar.setTitle("Despesas")
-//                getWindow().setStatusBarColor(Color.parseColor("#054F77"))
         } else if (navigationView.currentFragment is InsightFragment) {
             fab.visibility = View.GONE
             toolbar.setTitle("Insight")
-//                getWindow().setStatusBarColor(Color.parseColor("#CCCC00"))
         }
 
     }

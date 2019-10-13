@@ -1,19 +1,17 @@
 package com.example.financialapp.Fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financialapp.Adapter.InsightAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Model.Income
 import com.example.financialapp.R
 import com.example.financialapp.Service.FirebaseRequest
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.fragment_insight.*
@@ -53,8 +51,9 @@ class InsightFragment : Fragment() {
         try {
             withContext(Main) {
                 val dataSet =  createPieDataSet()
-                adapter = InsightAdapter(activity!!, totalExpenses, totalIncomes, dataSet)
-                list_insight.adapter = adapter
+                adapter = InsightAdapter(totalExpenses, totalIncomes, dataSet)
+                rv_insight.adapter = adapter
+                rv_insight.layoutManager = LinearLayoutManager(activity!!)
             }
         } catch (error: Throwable) {
             Log.d("error", error.toString())

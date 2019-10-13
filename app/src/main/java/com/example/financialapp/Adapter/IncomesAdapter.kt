@@ -58,11 +58,9 @@ class IncomesAdapter(val incomes: MutableList<Income>): RecyclerView.Adapter<Inc
 
     inner class IncomesViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(payment: Income) {
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
+
             with(payment){
                 itemView.txt_description.text = description
-                //itemView.txt_date.text = sdf.format(date).toString()
-
                 val nf = NumberFormat.getInstance()
                 val input = nf.format(price)
                 itemView.txt_price.text = "R$"+input
