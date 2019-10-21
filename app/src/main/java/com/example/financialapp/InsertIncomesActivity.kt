@@ -93,7 +93,7 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
 
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
+        startActivityForResult(intent, 1000)
     }
 
     private fun selectPhoto() {
@@ -124,7 +124,7 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
                 } else {
                     finish()
                 }
-                var bitmap: Bitmap
+                val bitmap: Bitmap
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         val source = ImageDecoder.createSource(this.contentResolver, selectedUri!!)

@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_call"
+        android:id="@+id/navigation_expense"
         android:icon="@drawable/money"
         android:iconTint="@color/colorBlue"
         android:title="Despesas" />
 
     <item
-        android:id="@+id/navigation_search"
+        android:id="@+id/navigation_income"
         android:icon="@drawable/income"
         android:iconTint="@color/colorBlue"
         android:title="Receitas" />

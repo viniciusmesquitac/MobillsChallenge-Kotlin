@@ -12,7 +12,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeView {
 
     private var content: FrameLayout? = null
-    var currentFragment: Fragment = ExpensesFragment()
+
+    companion object {
+        var currentFragment: Fragment = ExpensesFragment()
+    }
 
 
     override fun addFragment(fragment: Fragment, supportFragmentManager: FragmentManager) {
@@ -25,7 +28,7 @@ class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeVi
     override fun navigationActionListener(supportFragmentManager: FragmentManager): BottomNavigationView.OnNavigationItemSelectedListener {
         return BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigation_call -> {
+                R.id.navigation_expense -> {
                     if(currentFragment is ExpensesFragment) {
                         return@OnNavigationItemSelectedListener true
                     }
@@ -35,7 +38,7 @@ class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeVi
                     iNavBottomView.configureToolbarColor("#4682B4")
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_search -> {
+                R.id.navigation_income -> {
                     if(currentFragment is IncomesFragment) {
                         return@OnNavigationItemSelectedListener true
                     }
