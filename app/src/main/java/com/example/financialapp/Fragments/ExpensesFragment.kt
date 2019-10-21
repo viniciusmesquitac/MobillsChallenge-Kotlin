@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.Adapter.ExpensesAdapter
+import com.example.financialapp.Adapter.IncomesAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Service.FirebaseRequest
 
@@ -22,6 +23,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
 import kotlinx.android.synthetic.main.fragment_expenses.*
+import kotlinx.android.synthetic.main.fragment_incomes.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
@@ -29,7 +35,7 @@ import java.text.SimpleDateFormat
 class ExpensesFragment : Fragment(), IRecyclerView {
 
     private lateinit var adapter: ExpensesAdapter
-    private lateinit var expensesList : MutableList<Expense>
+    private lateinit var expensesList: MutableList<Expense>
     private lateinit var db: FirebaseRequest
 
 
@@ -41,31 +47,31 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        expensesList = mutableListOf<Expense>()
         db = FirebaseRequest()
+        expensesList = mutableListOf()
+        adapter = ExpensesAdapter(expensesList, activity!!)
 
-        // MARK - FETCH ALL EXPENSES AND SET IN RECYCLER VIEW
-        db.fetchFirebase("despesas")
-                .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if(document.exists()) {
-                        val payment = document.toObject(Expense::class.java)
-                        expensesList.add(payment)
-                    }
-                }
-            adapter = ExpensesAdapter(expensesList)
-            //setExpenseList(expensesList)
-            checkAdapterStatus(adapter)
-            recycler_view?.adapter = adapter
-            recycler_view?.layoutManager = activity?.let { LinearLayoutManager(it) }
-            setTotalValue()
+        recycler_view.adapter = adapter
+        recycler_view.layoutManager = LinearLayoutManager(activity!!)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            expensesList = db.fetchExpense()
+            adapter.filterListResult = expensesList
+
+            withContext(Dispatchers.Main) {
+                progress_expenses?.visibility = View.GONE
+                adapter.notifyDataSetChanged()
+                setTotalValue()
+            }
         }
 
         // MARK - EVENT CLICK
-        recycler_view.addOnItemClickListener(object: OnItemClickListener{
+        recycler_view.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-
-                val expense = expensesList[position]
+                if (position <= 0) {
+                    return
+                }
+                val expense = expensesList[position - 1]
                 val dialog = activity?.let { BottomSheetDialog(it) }
                 val view_dialog = layoutInflater.inflate(R.layout.dialog_info_expenses, null)
                 val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -115,7 +121,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     }
 
     private fun setSpinnerSelection(category: String, view: View) {
-        when(category) {
+        when (category) {
             "Casa" -> view.mySpinner_dialog.setSelection(0)
             "Alimentação" -> view.mySpinner_dialog.setSelection(1)
             "Transporte" -> view.mySpinner_dialog.setSelection(2)
@@ -140,18 +146,16 @@ class ExpensesFragment : Fragment(), IRecyclerView {
 
     fun setTotalValue() {
 
-        var totalExpenses = 0.0
+        var totalExpenses = 0f
         expensesList.forEach {
             totalExpenses -= it.price.toInt()
         }
-
-        val nf = NumberFormat.getInstance()
-        val input = nf.format(totalExpenses)
-        txt_total_expenses?.setText(input)
+        adapter.totalInsight = totalExpenses
+        adapter.notifyDataSetChanged()
     }
 
     fun checkAdapterStatus(adapter: ExpensesAdapter) {
-        if(adapter.itemCount == 0) {
+        if (adapter.itemCount == 0) {
             backgroundEmpty_text?.visibility = View.VISIBLE
             backgroundEmpty?.visibility = View.VISIBLE
         }

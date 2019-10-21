@@ -7,6 +7,9 @@
     tools:context=".SearchExpensesActivity">
 
     <androidx.appcompat.widget.Toolbar
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         android:id="@+id/toolbar_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -17,6 +20,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/back_home"
+            android:layout_width="30dp"
+            android:layout_marginLeft="4dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back" />
+
         <SearchView
             android:id="@+id/searchView_expenses"
             android:layout_width="match_parent"
@@ -26,7 +36,7 @@
             android:iconifiedByDefault="false"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:padding="8dp"
+            android:paddingBottom="8dp"
             android:searchHintIcon="@null"
             android:searchIcon="@null"
             app:searchIcon="@null"

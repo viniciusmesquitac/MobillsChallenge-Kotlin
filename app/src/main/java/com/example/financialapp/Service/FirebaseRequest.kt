@@ -33,8 +33,6 @@ class FirebaseRequest: InterfaceFirestoreRequest {
 
     }
 
-
-
     // LOAD
     override fun fetchFirebase(collectionPath: String): Task<QuerySnapshot> {
 
@@ -50,7 +48,7 @@ class FirebaseRequest: InterfaceFirestoreRequest {
         val docRef =  db.collection("users/$uid/$collectionPath").document()
         val docId = docRef.id
 
-        var expense = Expense(docId, description, price, date,false, category, "")
+        var expense = Expense(docId, description, price, date,category , "", false)
         if(!image.isEmpty()) {
            expense.image = image
         }
@@ -69,7 +67,7 @@ class FirebaseRequest: InterfaceFirestoreRequest {
         val docRef =  db.collection("users/$uid/$collectionPath").document()
         val docId = docRef.id
 
-        val income = Income(docId, description, price, date,false)
+        val income = Income(docId, description, price, date,"", "", false)
         docRef.set(income)
                 .addOnCompleteListener{
                     if(it.isSuccessful) {

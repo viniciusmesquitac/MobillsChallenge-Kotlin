@@ -1,17 +1,24 @@
 package com.example.financialapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financialapp.Adapter.ExpensesAdapter
+import com.example.financialapp.Adapter.SearchAdapter
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.Service.FirebaseRequest
 import kotlinx.android.synthetic.main.activity_search_expenses.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchExpensesActivity : AppCompatActivity() {
 
-    private lateinit var adapter: ExpensesAdapter
+    private lateinit var adapter: SearchAdapter<Expense>
     private lateinit var expensesList : MutableList<Expense>
     private lateinit var db: FirebaseRequest
 
@@ -19,25 +26,20 @@ class SearchExpensesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_expenses)
         setSupportActionBar(toolbar_search)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar_search.contentInsetStartWithNavigation = 0
 
         expensesList = mutableListOf<Expense>()
         db = FirebaseRequest()
 
-        db.fetchFirebase("despesas")
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.exists()) {
-                            val payment = document.toObject(Expense::class.java)
-                            expensesList.add(payment)
-                        }
-                    }
-                }
-
-        adapter = ExpensesAdapter(expensesList)
-        rv_search?.adapter = adapter
-        rv_search?.layoutManager = LinearLayoutManager(this@SearchExpensesActivity)
+       CoroutineScope(IO).launch {
+           expensesList = db.fetchExpense()
+           withContext(Main){
+               adapter = SearchAdapter(expensesList, this@SearchExpensesActivity)
+               rv_search?.adapter = adapter
+               rv_search?.layoutManager = LinearLayoutManager(this@SearchExpensesActivity)
+           }
+       }
 
        searchView_expenses.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
 
@@ -53,11 +55,11 @@ class SearchExpensesActivity : AppCompatActivity() {
 
        })
 
+
+        back_home.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        return true
-    }
 }

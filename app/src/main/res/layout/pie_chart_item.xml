@@ -17,7 +17,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
-        android:clickable="false"
         android:orientation="vertical">
 
         <TextView
@@ -44,6 +43,21 @@
             android:paddingTop="50dp">
 
         </com.github.mikephil.charting.charts.PieChart>
+
+
+        <FrameLayout
+            android:id="@+id/progress_recycler"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ProgressBar>
+
+        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 

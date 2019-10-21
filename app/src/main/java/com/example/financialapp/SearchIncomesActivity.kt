@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financialapp.Adapter.IncomesAdapter
+import com.example.financialapp.Adapter.SearchAdapter
 import com.example.financialapp.Model.Income
 import com.example.financialapp.Service.FirebaseRequest
+import kotlinx.android.synthetic.main.activity_search_expenses.*
 import kotlinx.android.synthetic.main.activity_search_incomes.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchIncomesActivity : AppCompatActivity() {
 
-    private lateinit var adapter: IncomesAdapter
+    private lateinit var adapter: SearchAdapter<Income>
     private lateinit var incomesList : MutableList<Income>
     private lateinit var db: FirebaseRequest
 
@@ -21,24 +28,21 @@ class SearchIncomesActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_search_incomes)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar_search_incomes.contentInsetStartWithNavigation = 0
 
 
         incomesList = mutableListOf<Income>()
         db = FirebaseRequest()
 
-        db.fetchFirebase("receitas")
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.exists()) {
-                            val payment = document.toObject(Income::class.java)
-                            incomesList.add(payment)
-                        }
-                    }
-                }
+        CoroutineScope(IO).launch {
+            incomesList = db.fetchIncomes()
 
-        adapter = IncomesAdapter(incomesList)
-        rv_search_incomes?.adapter = adapter
-        rv_search_incomes?.layoutManager = LinearLayoutManager(this)
+            withContext(Main){
+                adapter = SearchAdapter(incomesList, this@SearchIncomesActivity)
+                rv_search_incomes?.adapter = adapter
+                rv_search_incomes?.layoutManager = LinearLayoutManager(this@SearchIncomesActivity)
+            }
+        }
 
         searchView_incomes.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
 

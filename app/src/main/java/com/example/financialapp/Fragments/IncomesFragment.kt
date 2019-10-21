@@ -22,13 +22,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
 import kotlinx.android.synthetic.main.fragment_incomes.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class IncomesFragment : Fragment(), IRecyclerView {
 
     private lateinit var adapter: IncomesAdapter
-    private lateinit var incomesList : MutableList<Income>
+    private lateinit var incomesList: MutableList<Income>
     private lateinit var db: FirebaseRequest
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,34 +44,32 @@ class IncomesFragment : Fragment(), IRecyclerView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-        incomesList = mutableListOf<Income>()
         db = FirebaseRequest()
+        incomesList = mutableListOf()
 
-        // MARK - FETCH ALL EXPENSES AND SET IN RECYCLER VIEW
-        db.fetchFirebase("receitas")
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        if (document.exists()) {
-                            val payment = document.toObject(Income::class.java)
-                            incomesList.add(payment)
-                        }
-                    }
-                    adapter = IncomesAdapter(incomesList)
+        adapter = IncomesAdapter(incomesList, activity!!)
+        recycler_view_income?.adapter = adapter
+        recycler_view_income?.layoutManager = LinearLayoutManager(activity!!)
 
-                    //setIncomeList(incomesList)
-                    checkAdapterStatus(adapter)
-                    recycler_view_income?.adapter = adapter
-                    recycler_view_income?.layoutManager = activity?.let { LinearLayoutManager(it) }
-                    setTotalValue()
-                }
+        CoroutineScope(IO).launch {
+            incomesList = db.fetchIncomes()
+            adapter.filterListResult = incomesList
+
+
+            withContext(Main) {
+                progress_incomes?.visibility = View.GONE
+                setTotalValue()
+            }
+        }
 
 
 
-        recycler_view_income.addOnItemClickListener(object: OnItemClickListener{
+        recycler_view_income.addOnItemClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-
-                val income = incomesList[position]
+                if (position <= 0) {
+                    return
+                }
+                val income = incomesList[position - 1]
                 val dialog = activity?.let { BottomSheetDialog(it) }
 
                 val view_dialog = layoutInflater.inflate(R.layout.dialog_info_incomes, null)
@@ -78,7 +81,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                     view_dialog.edit_price_dialog.setText(price.toString())
                     view_dialog.edit_description_dialog.setText(description.toString())
                     view_dialog.edit_date_dialog.setText(sdf.format(date).toString())
-                    //setSpinnerSelection(category!!, view_dialog)
+                    // setSpinnerSelection(category!!, view_dialog)
                 }
 
                 val close = view_dialog.findViewById<ImageView>(R.id.iv_close)
@@ -136,28 +139,20 @@ class IncomesFragment : Fragment(), IRecyclerView {
 
 
     fun setTotalValue() {
-        var totalIncomes = 0
+        var totalIncomes = 0f
         incomesList.forEach {
             totalIncomes += it.price.toInt()
         }
-        val nf = NumberFormat.getInstance()
-        val input = nf.format(totalIncomes)
-        txt_total_incomes?.setText(input)
+        adapter.totalIncomes = totalIncomes
+        adapter.notifyDataSetChanged()
     }
 
     private fun setSpinnerSelection(category: String, view: View) {
-        when(category) {
+        when (category) {
             "Salários" -> view.mySpinner_dialog.setSelection(0)
             "Emprestimos" -> view.mySpinner_dialog.setSelection(1)
             "Investimentos" -> view.mySpinner_dialog.setSelection(2)
             "Outro" -> view.mySpinner_dialog.setSelection(3)
-        }
-    }
-
-    fun checkAdapterStatus(adapter: IncomesAdapter) {
-        if(adapter.itemCount == 0) {
-            backgroundEmpty_text_ic?.visibility = View.VISIBLE
-            backgroundEmpty_income?.visibility = View.VISIBLE
         }
     }
 

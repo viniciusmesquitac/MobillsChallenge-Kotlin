@@ -37,7 +37,7 @@ class InsertIncomesActivity : AppCompatActivity(), IInsertView {
         setContentView(R.layout.activity_insert_incomes)
         setSupportActionBar(toolbar_incomes)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        window.statusBarColor = Color.parseColor("#32CD32")
+        window.statusBarColor = Color.parseColor("#009c49")
 
         firebaseRequest = FirebaseRequest()
         val insertPresenter = InsertPresenter(this)

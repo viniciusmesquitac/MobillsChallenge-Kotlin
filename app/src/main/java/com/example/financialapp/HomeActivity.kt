@@ -17,6 +17,7 @@ import android.view.View
 import com.example.financialapp.Fragments.IncomesFragment
 import com.example.financialapp.Fragments.InsightFragment
 import com.example.financialapp.View.INavBottomView
+import kotlinx.android.synthetic.main.card_view_insight.*
 
 
 class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
@@ -88,7 +89,6 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
             } else {
                 true
             }
-
         }
         R.id.logout -> {
             loginPresenter.onLogout(this)
@@ -105,19 +105,32 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
     }
 
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        val item = menu?.findItem(R.id.btnSearch)
+        if(navigationView.currentFragment is IncomesFragment) {
+            item?.isVisible = true
+        } else if(navigationView.currentFragment is ExpensesFragment) {
+            item?.isVisible = true
+        } else if (navigationView.currentFragment is InsightFragment) {
+            item?.isVisible = false
+        }
+
+        return true
+    }
+
     @SuppressLint("RestrictedApi")
     override fun configureToolbarColor(color: String) {
 
         if(navigationView.currentFragment is IncomesFragment) {
-            //noinspection RestrictedApi
             fab.visibility = View.VISIBLE
-            toolbar.setTitle("Receitas")
+            //toolbar.setTitle("Receitas")
         } else if(navigationView.currentFragment is ExpensesFragment) {
             fab.visibility = View.VISIBLE
-            toolbar.setTitle("Despesas")
+           // toolbar.setTitle("Despesas")
         } else if (navigationView.currentFragment is InsightFragment) {
             fab.visibility = View.GONE
-            toolbar.setTitle("Insight")
+           // toolbar.setTitle("Insight")
         }
 
     }

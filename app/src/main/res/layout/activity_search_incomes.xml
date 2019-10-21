@@ -7,6 +7,9 @@
     tools:context=".SearchExpensesActivity">
 
     <androidx.appcompat.widget.Toolbar
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         android:id="@+id/toolbar_search_incomes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -23,9 +26,9 @@
             android:layout_height="match_parent"
             android:iconifiedByDefault="false"
             android:searchHintIcon="@null"
+            android:paddingBottom="8dp"
             android:searchIcon="@null"
             app:searchIcon="@null"
-            android:padding="8dp"
             android:hint="Procurar Por Descrição.."
             android:imeOptions="actionSearch"
             android:focusable="true"

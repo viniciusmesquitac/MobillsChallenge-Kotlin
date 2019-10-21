@@ -8,29 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".HomeActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        app:elevation="0dp"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorBlue"
-            android:elevation="0dp"
-            android:iconTint="@color/colorWhite"
-            android:theme="?attr/actionBarTheme"
-            android:visibility="visible"
-            app:layout_scrollFlags="enterAlways|scroll|snap"
-            app:menu="@menu/menu_home"
-            app:title="Despesas">
-
-        </androidx.appcompat.widget.Toolbar>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"

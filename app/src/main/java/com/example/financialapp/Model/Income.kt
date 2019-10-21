@@ -1,53 +1,22 @@
 package com.example.financialapp.Model
 
-import android.os.Parcel
-import android.os.Parcelable
-import java.sql.Timestamp
+
 import java.util.*
 
 data class Income (
-        val id: String?,
-        var description: String,
-        var price: Double,
-        val date: Date,
+        override val id: String?,
+        override var description: String?,
+        override var price: Double,
+        override val date: Date,
+        override var category: String?,
+        override var image: String?,
         val received: Boolean
-): Parcelable {
-
-    constructor(): this (
-            "",
+): Payment {
+    constructor(): this ("",
             "",
             0.0,
-            Timestamp(System.currentTimeMillis()),
-            false
-    )
-
-    constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString().toString(),
-            parcel.readDouble(),
-            parcel.readSerializable() as Date,
-            parcel.readBoolean()) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeDouble(price)
-        parcel.writeString(description)
-        parcel.writeSerializable(date)
-        parcel.writeByte(if (received) 1 else 0)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Income> {
-        override fun createFromParcel(parcel: Parcel): Income {
-            return Income(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Income?> {
-            return arrayOfNulls(size)
-        }
-    }
+            Date(),
+            "",
+            "",
+            false)
 }

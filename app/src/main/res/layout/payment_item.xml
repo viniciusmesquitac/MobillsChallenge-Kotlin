@@ -14,17 +14,16 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="5dp"
-    android:outlineAmbientShadowColor="@color/colorPrimaryDark"
     android:layout_height="100dp">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:outlineAmbientShadowColor="@color/colorAccent">
+        android:layout_height="match_parent">
 
         <TextView
+            android:maxLines="1"
             android:id="@+id/txt_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,20 +1,28 @@
 package com.example.financialapp.Adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.Model.Expense
 import com.example.financialapp.R
+import com.example.financialapp.SearchExpensesActivity
+import kotlinx.android.synthetic.main.activity_insert_expenses.view.*
+import kotlinx.android.synthetic.main.activity_search_expenses.view.*
+import kotlinx.android.synthetic.main.card_view_insight.view.*
 import kotlinx.android.synthetic.main.payment_item.view.*
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
-class ExpensesAdapter(val payments: MutableList<Expense>): RecyclerView.Adapter<ExpensesAdapter.ExpenseViewHolder> (), Filterable{
+class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder> (), Filterable {
 
-    internal var filterListResult: MutableList<Expense>
+    var filterListResult: MutableList<Expense>
+    var totalInsight = 0f
 
     init {
         filterListResult = payments
@@ -44,15 +52,40 @@ class ExpensesAdapter(val payments: MutableList<Expense>): RecyclerView.Adapter<
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
-        val inflate = LayoutInflater.from(parent.context).inflate(R.layout.payment_item, parent, false)
-        return ExpenseViewHolder(inflate)
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
 
-    override fun getItemCount(): Int = filterListResult.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-    override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
-        holder.bind(filterListResult[position])
+        when(viewType) {
+            0 -> {
+                val inflate = LayoutInflater.from(parent.context).inflate(R.layout.card_view_insight, parent, false)
+                return CardViewHolder(inflate)
+            }
+
+            else -> {
+                val inflate = LayoutInflater.from(parent.context).inflate(R.layout.payment_item, parent, false)
+                return ExpenseViewHolder(inflate)
+            }
+
+        }
+    }
+
+    override fun getItemCount(): Int = filterListResult.size + 1
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when(holder.itemViewType) {
+
+            0 -> {
+                val cardHolder = holder as CardViewHolder
+                cardHolder.bind()
+            } else -> {
+                val holder1 = holder as ExpenseViewHolder
+                holder1.bind(filterListResult[position - 1])
+            }
+
+        }
     }
 
     inner class ExpenseViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -66,6 +99,26 @@ class ExpensesAdapter(val payments: MutableList<Expense>): RecyclerView.Adapter<
                 val nf = NumberFormat.getInstance()
                 val input = nf.format(price)
                 itemView.txt_price.text = "R$ "+input
+            }
+        }
+    }
+
+    inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        fun bind() {
+            itemView.txt_total_insight.text = totalInsight.toString()
+
+            itemView.toolbar.setOnMenuItemClickListener { menuItem ->
+                when(menuItem.itemId) {
+
+                    R.id.btnSearch -> {
+                        val intent = Intent(context, SearchExpensesActivity::class.java)
+                        context.startActivity(intent)
+                        true
+
+                    } else -> {
+                        true
+                    }
+                }
             }
         }
     }

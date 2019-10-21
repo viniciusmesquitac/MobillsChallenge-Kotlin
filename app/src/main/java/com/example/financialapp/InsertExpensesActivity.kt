@@ -18,7 +18,6 @@ import com.example.financialapp.View.CurrencyTextWatcher
 import com.example.financialapp.View.IInsertView
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_insert_expenses.*
 import java.io.IOException
@@ -28,7 +27,7 @@ import java.util.*
 
 class InsertExpensesActivity : AppCompatActivity(), IInsertView {
 
-    private lateinit var firebaseRequest: FirebaseRequest
+    private lateinit var db: FirebaseRequest
     private lateinit var pickerDate: Date
     private var selectedUri: Uri? = null
 
@@ -41,7 +40,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
 
 
         // MARK: INITIALIZE PRESENTER
-        firebaseRequest = FirebaseRequest()
+        db = FirebaseRequest()
         val insertPresenter = InsertPresenter(this)
 
         // MARK - SET CLICK EVENTS
@@ -89,7 +88,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
         val cleanPrice = clean.replace(",", "")
         val p = nf.parse(cleanPrice).toDouble()
 
-        firebaseRequest.saveExpenseInFirebase("despesas",p, d, pickerDate, c, img)
+        db.saveExpenseInFirebase("despesas",p, d, pickerDate, c, img)
 
         val intent = Intent(this, HomeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

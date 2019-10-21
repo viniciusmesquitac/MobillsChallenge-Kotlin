@@ -2,10 +2,8 @@ package com.example.financialapp.Fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.financialapp.Adapter.InsightAdapter
 import com.example.financialapp.Model.Expense
@@ -32,14 +30,19 @@ class InsightFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_insight, container, false)
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        //progress_recycler.visibility = View.GONE
         db = FirebaseRequest()
+        adapter = InsightAdapter()
+
+        rv_insight.adapter = adapter
+        rv_insight.layoutManager = LinearLayoutManager(activity!!)
 
         CoroutineScope(IO).launch {
             setTotalValue()
@@ -51,9 +54,11 @@ class InsightFragment : Fragment() {
         try {
             withContext(Main) {
                 val dataSet =  createPieDataSet()
-                adapter = InsightAdapter(totalExpenses, totalIncomes, dataSet)
-                rv_insight.adapter = adapter
-                rv_insight.layoutManager = LinearLayoutManager(activity!!)
+                adapter.pieDataSet = dataSet
+                adapter.totalExpense = totalExpenses
+                adapter.totalIncome = totalIncomes
+                adapter.notifyDataSetChanged()
+
             }
         } catch (error: Throwable) {
             Log.d("error", error.toString())
@@ -110,8 +115,14 @@ class InsightFragment : Fragment() {
 
     private suspend fun setText(input: String) {
         withContext(Main) {
-            txt_total_insight?.setText(input)
+            //txt_total_insight?.setText(input)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.menu_fragment_insight, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }
