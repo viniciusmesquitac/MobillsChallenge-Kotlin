@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchExpensesActivity">
+    tools:context=".activities.SearchExpensesActivity">
 
     <androidx.appcompat.widget.Toolbar
         app:contentInsetLeft="0dp"
@@ -19,6 +19,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/back_income"
+            android:layout_width="30dp"
+            android:layout_marginLeft="4dp"
+            android:layout_height="30dp"
+            android:background="@drawable/back" />
 
         <SearchView
             android:id="@+id/searchView_incomes"

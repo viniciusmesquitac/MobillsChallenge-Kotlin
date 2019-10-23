@@ -18,7 +18,7 @@
         android:background="@color/colorBlue"
         android:theme="?attr/actionBarTheme"
         android:visibility="visible"
-        app:menu="@menu/menu_fragment_insight"
+        app:menu="@menu/menu_home"
         app:title="">
 
     </androidx.appcompat.widget.Toolbar>

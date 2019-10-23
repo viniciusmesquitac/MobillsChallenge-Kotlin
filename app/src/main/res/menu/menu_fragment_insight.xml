@@ -6,9 +6,4 @@
         android:id="@+id/settings2"
         android:title="Configurações" />
 
-    <item
-        android:id="@+id/logout2"
-        android:title="Etes" />
-
-
 </menu>
