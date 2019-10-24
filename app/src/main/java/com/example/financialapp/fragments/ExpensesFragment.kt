@@ -75,7 +75,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
 
                 // MARK - SETTING EXPENSE DATA IN MODAL
                 with(expense) {
-                    viewDialog.edit_price_dialog.setText(price.toString())
+                    viewDialog.edit_price_dialog.setText(price.formatted())
                     viewDialog.edit_description_dialog.setText(description.toString())
                     viewDialog.edit_date_dialog.setText(date.formatted())
                     setSpinnerSelection(category!!, viewDialog)
@@ -88,9 +88,11 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 val btnUpdate = viewDialog.findViewById(R.id.btnUpdateExpense) as Button
 
                 btnUpdate.btnUpdateExpense.setOnClickListener {
-                    expense.price = viewDialog.edit_price_dialog.text.toString().toDouble()
+                    
+                    expense.price = viewDialog.edit_price_dialog.text.toString().formatted()
                     expense.description = viewDialog.edit_description_dialog.text.toString()
                     expense.category = viewDialog.mySpinner_dialog.selectedItem.toString()
+
                     db.updateExpenseInFirebase(expense)
                     adapter.notifyDataSetChanged()
                     setTotalValue()
@@ -142,7 +144,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
     }
 
     fun setTotalValue() {
-        var totalExpenses = 0f
+        var totalExpenses = 0.0
         expensesList.forEach {
             totalExpenses -= it.price.toInt()
         }

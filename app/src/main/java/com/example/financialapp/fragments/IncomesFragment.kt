@@ -21,6 +21,7 @@ import com.example.financialapp.view.IRecyclerView
 import com.example.financialapp.view.OnItemClickListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_insert_incomes.view.*
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
 import kotlinx.android.synthetic.main.fragment_incomes.*
 import kotlinx.coroutines.CoroutineScope
@@ -75,7 +76,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
 
                 // MARK - SETTING EXPENSE DATA IN MODAL
                 with(income) {
-                    viewDialog.edit_price_dialog.setText(price.toString())
+                    viewDialog.edit_price_dialog.setText(price.formatted())
                     viewDialog.edit_description_dialog.setText(description.toString())
                     viewDialog.edit_date_dialog.setText(date.formatted())
                     setSpinnerSelection(category!!, viewDialog)
@@ -89,8 +90,9 @@ class IncomesFragment : Fragment(), IRecyclerView {
 
                 btnUpdateIncome.btnUpdateExpense.setOnClickListener {
 
-                    income.price = viewDialog.edit_price_dialog.text.toString().toDouble()
+                    income.price = viewDialog.edit_price_dialog.text.toString().formatted()
                     income.description = viewDialog.edit_description_dialog.text.toString()
+                    income.category = viewDialog.mySpinner_dialog.selectedItem.toString()
 
                     db.updateIncomeInFirebase(income)
                     adapter.notifyDataSetChanged()
@@ -136,7 +138,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
 
 
     private fun setTotalValue() {
-        var totalIncomes = 0f
+        var totalIncomes = 0.0
         incomesList.forEach {
             totalIncomes += it.price.toInt()
         }

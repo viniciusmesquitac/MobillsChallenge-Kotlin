@@ -1,5 +1,8 @@
+@file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package com.example.financialapp.model
 
+import java.lang.Exception
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,9 +36,17 @@ fun Double.formatted(): String {
     return "R$ $input"
 }
 
-fun String.formatted(): Double {
+fun String.formatted() : Double {
     val nf = NumberFormat.getInstance()
-    val clean = this.replace("R$", "").replace(",", "")
-    val price = nf.parse(clean).toDouble()
-    return price
+    return try {
+        val clean = this
+                .replace("R$", "")
+                .replace(",", "")
+                .replace(".", "")
+
+        val toDouble = nf.parse(clean).toDouble()
+        toDouble
+    } catch (e: Exception) {
+        0.0
+    }
 }

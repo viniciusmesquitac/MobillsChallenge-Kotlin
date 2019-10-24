@@ -18,7 +18,6 @@ import com.example.financialapp.R
 import com.example.financialapp.service.FirebaseRequest
 import com.example.financialapp.view.CurrencyTextWatcher
 import com.example.financialapp.view.IInsertView
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_insert_expenses.*
@@ -86,7 +85,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
             imageView_attach.visibility = View.GONE
             btnAddPhoto.visibility = View.VISIBLE
             delete_image.visibility = View.INVISIBLE
-            txt_addImageDescript.visibility = View.VISIBLE
+            txtAddDescription.visibility = View.VISIBLE
             selectedUri = null
         }
     }
@@ -141,7 +140,7 @@ class InsertExpensesActivity : AppCompatActivity(), IInsertView {
                         imageView_attach.setImageBitmap(bitmap)
                         imageView_attach.visibility = View.VISIBLE
                         delete_image.visibility = View.VISIBLE
-                        txt_addImageDescript.visibility = View.INVISIBLE
+                        txtAddDescription.visibility = View.INVISIBLE
                         btnAddPhoto.visibility = View.INVISIBLE
                     }
 

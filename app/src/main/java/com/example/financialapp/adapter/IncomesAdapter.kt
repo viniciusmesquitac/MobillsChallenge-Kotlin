@@ -23,7 +23,7 @@ class IncomesAdapter(val incomes: MutableList<Income>, internal var context: Con
         filterListResult = incomes
     }
 
-    var totalIncomes = 0.0f
+    var totalIncomes = 0.0
 
     override fun getFilter(): Filter {
         return object: Filter() {
@@ -92,7 +92,7 @@ class IncomesAdapter(val incomes: MutableList<Income>, internal var context: Con
 
     inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind() {
-            itemView.txt_total_insight.text = totalIncomes.toString()
+            itemView.txt_total_insight.text = totalIncomes.formatted()
 
 
             itemView.toolbar.setOnMenuItemClickListener { menuItem ->

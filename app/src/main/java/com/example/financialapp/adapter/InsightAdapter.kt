@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.R
+import com.example.financialapp.model.formatted
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -118,7 +119,7 @@ class InsightAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind() {
             var total = totalIncome + totalExpense
-            itemView.txt_total_insight.text = total.toString()
+            itemView.txt_total_insight.text = total.formatted()
         }
     }
 

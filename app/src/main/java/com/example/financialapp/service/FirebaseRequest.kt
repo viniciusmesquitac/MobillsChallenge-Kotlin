@@ -97,7 +97,7 @@ class FirebaseRequest: InterfaceFirestoreRequest {
     override fun deleteExpenseInFirebase(expense: Expense) {
 
         val docId = expense.id.toString()
-        db.collection("users/$uid/$incomes")
+        db.collection("users/$uid/$expenses")
                 .document(docId)
                 .delete()
                 .addOnCompleteListener{

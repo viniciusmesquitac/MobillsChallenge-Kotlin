@@ -18,11 +18,15 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:labelVisibilityMode="unlabeled"
+        android:focusableInTouchMode="false"
         android:layout_gravity="bottom"
-        android:background="@color/colorWhite"
+        android:background="@android:color/white"
+        android:elevation="16dp"
         app:itemIconTint="@color/color_item_nav_bottom"
         app:itemTextColor="@color/color_item_nav_bottom"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"

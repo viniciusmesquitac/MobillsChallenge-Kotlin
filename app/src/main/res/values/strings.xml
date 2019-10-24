@@ -37,5 +37,11 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="price">Preço</string>
+    <string name="date">Data</string>
+    <string name="add">Adicionar</string>
+    <string name="insira_uma_imagem">Insira uma imagem</string>
+    <string name="insira_imagem">Insira uma imagem (Opcional)</string>
+    <string name="description">Descrição</string>
 
 </resources>

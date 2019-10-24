@@ -55,16 +55,6 @@
             android:text="Saldo total"
             android:textColor="@color/colorWhite" />
 
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="150dp"
-            android:layout_marginBottom="8dp"
-            android:text="R$"
-            android:textColor="@color/colorWhite" />
     </androidx.cardview.widget.CardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.model.Expense
 import com.example.financialapp.R
 import com.example.financialapp.activities.SearchExpensesActivity
+import com.example.financialapp.activities.SettingsActivity
 import com.example.financialapp.model.formatted
+import com.example.financialapp.view.selectByCategory
 import kotlinx.android.synthetic.main.card_view_insight.view.*
 import kotlinx.android.synthetic.main.payment_item.view.*
 
 class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder> (), Filterable {
 
     var filterListResult: MutableList<Expense>
-    var totalInsight = 0f
+    var totalInsight = 0.0
 
     init {
         filterListResult = payments
@@ -54,15 +56,15 @@ class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        when(viewType) {
+        return when(viewType) {
             0 -> {
                 val inflate = LayoutInflater.from(parent.context).inflate(R.layout.card_view_payments, parent, false)
-                return CardViewHolder(inflate)
+                CardViewHolder(inflate)
             }
 
             else -> {
                 val inflate = LayoutInflater.from(parent.context).inflate(R.layout.payment_item, parent, false)
-                return ExpenseViewHolder(inflate)
+                ExpenseViewHolder(inflate)
             }
 
         }
@@ -92,13 +94,14 @@ class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context:
                 itemView.txt_category.text = category
                 itemView.txt_date.text = date.formatted()
                 itemView.txt_price.text = price.formatted()
+                itemView.category_icon.selectByCategory(category!!)
             }
         }
     }
 
     inner class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind() {
-            itemView.txt_total_insight.text = totalInsight.toString()
+            itemView.txt_total_insight.text = totalInsight.formatted()
 
             itemView.toolbar.setOnMenuItemClickListener { menuItem ->
                 when(menuItem.itemId) {
@@ -108,7 +111,16 @@ class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context:
                         context.startActivity(intent)
                         true
 
-                    } else -> {
+                    }
+
+                    R.id.BtnSettings -> {
+                        val intent = Intent(context, SettingsActivity::class.java)
+                        context.startActivity(intent)
+                        true
+                    }
+
+
+                    else -> {
                         true
                     }
                 }
