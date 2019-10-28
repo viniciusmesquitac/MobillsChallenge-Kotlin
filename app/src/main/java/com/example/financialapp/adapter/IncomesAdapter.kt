@@ -12,8 +12,13 @@ import com.example.financialapp.model.Income
 import com.example.financialapp.R
 import com.example.financialapp.activities.SearchIncomesActivity
 import com.example.financialapp.model.formatted
+import com.example.financialapp.view.selectByCategory
 import kotlinx.android.synthetic.main.card_view_insight.view.*
+import kotlinx.android.synthetic.main.income_item.view.*
 import kotlinx.android.synthetic.main.payment_item.view.*
+import kotlinx.android.synthetic.main.payment_item.view.category_icon
+import kotlinx.android.synthetic.main.payment_item.view.txt_description
+import kotlinx.android.synthetic.main.payment_item.view.txt_price
 
 class IncomesAdapter(val incomes: MutableList<Income>, internal var context: Context): RecyclerView.Adapter<RecyclerView.ViewHolder> (), Filterable{
 
@@ -86,6 +91,7 @@ class IncomesAdapter(val incomes: MutableList<Income>, internal var context: Con
             with(payment){
                 itemView.txt_description.text = description
                 itemView.txt_price.text = price.formatted()
+                itemView.category_icon_income.selectByCategory(category!!)
             }
         }
     }

@@ -43,5 +43,6 @@
     <string name="insira_uma_imagem">Insira uma imagem</string>
     <string name="insira_imagem">Insira uma imagem (Opcional)</string>
     <string name="description">Descrição</string>
+    <string name="despesas_por_categoria">DESPESAS POR CATEGORIA</string>
 
 </resources>

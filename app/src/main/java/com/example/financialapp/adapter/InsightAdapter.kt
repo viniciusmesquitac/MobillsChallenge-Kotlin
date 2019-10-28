@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.financialapp.R
 import com.example.financialapp.model.formatted
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.HorizontalBarChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import kotlinx.android.synthetic.main.card_view_insight.view.*
@@ -47,7 +50,7 @@ class InsightAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount() = 5
+    override fun getItemCount() = 3
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
@@ -90,13 +93,23 @@ class InsightAdapter(): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val pieChartView = itemView.findViewById(R.id.pieChartView) as PieChart
 
             pieDataSet.setColors(colorArray, 100)
+            pieDataSet.setDrawValues(false)
+
             pieChartView.setDrawEntryLabels(false)
             pieChartView.description = null
             pieChartView.setNoDataTextColor(Color.WHITE)
+            pieChartView.setDrawRoundedSlices(false)
+            pieChartView.setTouchEnabled(false)
+            pieChartView.legend.orientation = Legend.LegendOrientation.VERTICAL
+            pieChartView.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            pieChartView.legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            //pieChartView.legend.isEnabled = false
 
             val pieData = PieData(pieDataSet)
             pieChartView.data = pieData
             itemView.progress_recycler.visibility = View.GONE
+           // pieChartView.spin( 500,0f,-360f, Easing.EaseInOutQuad)
+            pieChartView.animateX(300)
 
         }
     }

@@ -1,6 +1,8 @@
 package com.example.financialapp.adapter
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.example.financialapp.R
 import com.example.financialapp.activities.SearchExpensesActivity
 import com.example.financialapp.activities.SettingsActivity
 import com.example.financialapp.model.formatted
+import com.example.financialapp.service.FirebaseRequest
 import com.example.financialapp.view.selectByCategory
 import kotlinx.android.synthetic.main.card_view_insight.view.*
 import kotlinx.android.synthetic.main.payment_item.view.*
@@ -95,6 +98,29 @@ class ExpensesAdapter(val payments: MutableList<Expense>, internal  var context:
                 itemView.txt_date.text = date.formatted()
                 itemView.txt_price.text = price.formatted()
                 itemView.category_icon.selectByCategory(category!!)
+            }
+
+            itemView.txt_market.setOnClickListener {
+                lateinit var dialog: AlertDialog
+
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Transferência")
+                builder.setMessage("Deseja marcar como pago?")
+
+                val dialogClickListener = DialogInterface.OnClickListener{ _, which ->
+                    when(which){
+                        DialogInterface.BUTTON_POSITIVE -> {
+                            payment.paid = true
+                            FirebaseRequest().updateExpenseInFirebase(payment)
+                        }
+                        DialogInterface.BUTTON_NEGATIVE -> print("teste 2.0")
+                    }
+                }
+
+                builder.setPositiveButton("SIM",dialogClickListener)
+                builder.setNegativeButton("CANCELAR",dialogClickListener)
+                dialog = builder.create()
+                dialog.show()
             }
         }
     }

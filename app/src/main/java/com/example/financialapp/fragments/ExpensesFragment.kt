@@ -19,6 +19,7 @@ import com.example.financialapp.R
 import com.example.financialapp.model.formatted
 import com.example.financialapp.view.IRecyclerView
 import com.example.financialapp.view.OnItemClickListener
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_info_expenses.view.*
@@ -30,6 +31,7 @@ import kotlinx.coroutines.withContext
 
 
 class ExpensesFragment : Fragment(), IRecyclerView {
+
 
     private lateinit var adapter: ExpensesAdapter
     private lateinit var expensesList: MutableList<Expense>
@@ -68,6 +70,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 if (position <= 0) {
                     return
                 }
+
                 val expense = expensesList[position - 1]
                 val dialog = activity?.let { BottomSheetDialog(it) }
                 val viewDialog = layoutInflater.inflate(R.layout.dialog_info_expenses, null)
@@ -85,6 +88,7 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 close.setOnClickListener {
                     dialog?.dismiss()
                 }
+
                 val btnUpdate = viewDialog.findViewById(R.id.btnUpdateExpense) as Button
 
                 btnUpdate.btnUpdateExpense.setOnClickListener {
@@ -117,6 +121,11 @@ class ExpensesFragment : Fragment(), IRecyclerView {
                 dialog?.show()
             }
         })
+
+
+        refresh_layout.setOnRefreshListener {
+            loadExpenses()
+        }
     }
 
     private fun setSpinnerSelection(category: String, view: View) {
@@ -169,6 +178,21 @@ class ExpensesFragment : Fragment(), IRecyclerView {
             adapter.notifyDataSetChanged()
         }
         snack.show()
+    }
+
+    override fun loadExpenses() {
+        CoroutineScope(Dispatchers.IO).launch {
+            expensesList = db.fetchExpense()
+            adapter.filterListResult = expensesList
+
+            withContext(Dispatchers.Main) {
+                progress_expenses?.visibility = View.GONE
+                adapter.notifyDataSetChanged()
+                setTotalValue()
+                checkAdapterStatus(adapter)
+                refresh_layout?.isRefreshing = false
+            }
+        }
     }
 
 }

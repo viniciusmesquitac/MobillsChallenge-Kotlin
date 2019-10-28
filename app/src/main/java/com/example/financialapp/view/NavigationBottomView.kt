@@ -35,7 +35,8 @@ class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeVi
                     val fragment = ExpensesFragment()
                     currentFragment = fragment
                     addFragment(fragment, supportFragmentManager)
-                    iNavBottomView.configureToolbarColor("#4682B4")
+                    iNavBottomView.resetIcons()
+                    iNavBottomView.setFabVisibility()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_income -> {
@@ -45,8 +46,8 @@ class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeVi
                     val fragment = IncomesFragment()
                     currentFragment = fragment
                     addFragment(fragment, supportFragmentManager)
-                    iNavBottomView.configureToolbarColor("#90EE90")
-
+                    iNavBottomView.resetIcons()
+                    iNavBottomView.setFabVisibility()
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -57,7 +58,9 @@ class NavigationBottomView(internal var iNavBottomView: INavBottomView): IHomeVi
                     val fragment = InsightFragment()
                     currentFragment = fragment
                     addFragment(fragment, supportFragmentManager)
-                    iNavBottomView.configureToolbarColor("#CCCC00")
+                    iNavBottomView.resetIcons()
+                    iNavBottomView.setFabVisibility()
+                    //item?.setIcon(R.drawable.lightbulb)
                     return@OnNavigationItemSelectedListener true
                 }
             }

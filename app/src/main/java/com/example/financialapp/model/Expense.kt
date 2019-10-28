@@ -8,13 +8,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class Expense (
-    override val id: String?,
-    override var description: String?,
-    override var price: Double,
-    override val date: Date,
-    override var category: String?,
-    override var image: String?,
-    val paid: Boolean
+        override val id: String?,
+        override var description: String?,
+        override var price: Double,
+        override val date: Date,
+        override var category: String?,
+        override var image: String?,
+        var paid: Boolean
 ) : Payment {
     constructor(): this("",
             "",
@@ -27,7 +27,7 @@ data class Expense (
 
 
 fun Date.formatted(): String =
-        SimpleDateFormat("d MM yyyy", Locale("pt", "BR")).format(this)
+        SimpleDateFormat("d/MM/yyyy", Locale("pt", "BR")).format(this)
 
 
 fun Double.formatted(): String {
@@ -43,10 +43,12 @@ fun String.formatted() : Double {
                 .replace("R$", "")
                 .replace(",", "")
                 .replace(".", "")
+                .replace(" ", "")
 
         val toDouble = nf.parse(clean).toDouble()
         toDouble
     } catch (e: Exception) {
+        print(e.message)
         0.0
     }
 }

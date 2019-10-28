@@ -31,6 +31,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class IncomesFragment : Fragment(), IRecyclerView {
+    override fun loadExpenses() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var adapter: IncomesAdapter
     private lateinit var incomesList: MutableList<Income>
@@ -74,7 +77,7 @@ class IncomesFragment : Fragment(), IRecyclerView {
                 val dialog = activity?.let { BottomSheetDialog(it) }
                 val viewDialog = layoutInflater.inflate(R.layout.dialog_info_incomes, null)
 
-                // MARK - SETTING EXPENSE DATA IN MODAL
+                // setup data in bottom sheet
                 with(income) {
                     viewDialog.edit_price_dialog.setText(price.formatted())
                     viewDialog.edit_description_dialog.setText(description.toString())

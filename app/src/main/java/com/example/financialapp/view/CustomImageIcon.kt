@@ -8,5 +8,8 @@ fun AppCompatImageView.selectByCategory(category: String) {
         "Casa" -> return this.setImageResource(R.drawable.home)
         "Alimentação" -> return this.setImageResource(R.drawable.food)
         "Transporte" -> return this.setImageResource(R.drawable.transport)
+        "Salários" -> return this.setImageResource(R.drawable.transport)
+        "Emprestimos" -> return this.setImageResource(R.drawable.transport)
+        "Investimentos" -> return this.setImageResource(R.drawable.transport)
     }
 }

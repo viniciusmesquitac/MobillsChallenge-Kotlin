@@ -53,11 +53,11 @@
         android:hint="@string/price"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/price_simbol"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_incomes" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/price_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
@@ -124,7 +124,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editDate_income" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/document_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"

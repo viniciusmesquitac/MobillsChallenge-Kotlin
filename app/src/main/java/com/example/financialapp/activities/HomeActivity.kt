@@ -12,6 +12,7 @@ import com.example.financialapp.view.NavigationBottomView
 import kotlinx.android.synthetic.main.activity_home.*
 import android.content.Intent
 import android.view.View
+import androidx.core.view.forEach
 import com.example.financialapp.fragments.IncomesFragment
 import com.example.financialapp.fragments.InsightFragment
 import com.example.financialapp.R
@@ -20,6 +21,11 @@ import kotlinx.android.synthetic.main.card_view_insight.*
 
 
 class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
+
+    override fun resetIcons() {
+        val menu = navigation.menu
+        menu.findItem(R.id.navigation_insight).setIcon(R.drawable.lightbulb_outlined)
+    }
 
 
     override fun onLoginResult(message: String) {}
@@ -76,22 +82,8 @@ class HomeActivity : AppCompatActivity(), ILoginView, INavBottomView {
         }
     }
 
-
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
-        val item = menu?.findItem(R.id.btnSearch)
-        when (NavigationBottomView.currentFragment) {
-             is IncomesFragment -> item?.isVisible = true
-             is ExpensesFragment -> item?.isVisible = true
-             is InsightFragment -> item?.isVisible = false
-        }
-
-        return true
-    }
-
     @SuppressLint("RestrictedApi")
-    override fun configureToolbarColor(color: String) {
+    override fun setFabVisibility() {
 
         when (NavigationBottomView.currentFragment) {
              is IncomesFragment -> fab.visibility = View.VISIBLE
