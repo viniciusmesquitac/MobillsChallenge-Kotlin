@@ -21,5 +21,28 @@
         <item>Investimentos</item>
         <item>Outras receitas</item>
     </string-array>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="price">Preço</string>
+    <string name="date">Data</string>
+    <string name="add">Adicionar</string>
+    <string name="insira_uma_imagem">Insira uma imagem</string>
+    <string name="insira_imagem">Insira uma imagem (Opcional)</string>
+    <string name="description">Descrição</string>
+    <string name="despesas_por_categoria">DESPESAS POR CATEGORIA</string>
 
 </resources>

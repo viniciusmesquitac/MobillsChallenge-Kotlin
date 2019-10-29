@@ -13,21 +13,21 @@
         app:cardCornerRadius="20dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="10dp"
-        android:clickable="false"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:outlineAmbientShadowColor="@color/colorPrimaryDark"
         android:layout_height="100dp">
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text="Visão geral" />
+            android:text="VISÃO GERAL" />
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -43,6 +43,7 @@
             android:layout_marginTop="40dp" />
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

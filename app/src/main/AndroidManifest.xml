@@ -10,13 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".SearchIncomesActivity"></activity>
-        <activity android:name=".SearchExpensesActivity" />
-        <activity android:name=".InsertIncomesActivity" />
-        <activity android:name=".InsertExpensesActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".activities.SearchIncomesActivity" />
+        <activity android:name=".activities.SearchExpensesActivity" />
+        <activity android:name=".activities.InsertIncomesActivity" />
+        <activity android:name=".activities.InsertExpensesActivity" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

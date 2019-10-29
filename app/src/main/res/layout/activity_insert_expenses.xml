@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InsertExpensesActivity">
+    tools:context=".activities.InsertExpensesActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_expenses"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Descrição"
+        android:hint="@string/description"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/editPrice"
         app:layout_constraintStart_toStartOf="@+id/editPrice"
@@ -34,13 +34,13 @@
         android:id="@+id/editPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxLength="14"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
-        android:ems="10"
-        android:hint="Preço"
+        android:hint="@string/price"
         android:inputType="none|number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/price_simbol"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_expenses" />
 
     <EditText
@@ -48,10 +48,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:clickable="true"
         android:ems="10"
+        android:clickable="true"
         android:focusable="false"
-        android:hint="Data"
+        android:hint="@string/date"
         android:inputType="date"
         android:selectAllOnFocus="false"
         app:layout_constraintEnd_toEndOf="@+id/editDescription"
@@ -67,7 +67,7 @@
         android:layout_marginEnd="42dp"
         android:background="@drawable/button_rounded"
         android:backgroundTint="@color/colorRed"
-        android:text="Adicionar"
+        android:text="@string/add"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editDate" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/price_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
@@ -102,7 +102,7 @@
         app:srcCompat="@drawable/money" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/document_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="4dp"
@@ -113,7 +113,7 @@
         app:srcCompat="@drawable/description" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/date_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="4dp"
@@ -125,7 +125,7 @@
         app:srcCompat="@drawable/date" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/category_simbol"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginEnd="4dp"
@@ -141,35 +141,48 @@
         android:id="@+id/btnAddPhoto"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:clickable="true"
+        android:adjustViewBounds="true"
         android:background="@drawable/button_rounded"
         android:backgroundTint="@color/colorGray50Op"
+        android:contentDescription="@string/insira_uma_imagem"
         android:src="@drawable/add_photo"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_attach"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_attach"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/imageView_attach"
-        app:layout_constraintTop_toTopOf="@+id/imageView_attach"
-        app:layout_constraintVertical_bias="0.241" />
-
-    <ImageView
-        android:id="@+id/imageView_attach"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:adjustViewBounds="true"
-        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnCreatePayment"
         app:layout_constraintStart_toStartOf="@+id/btnCreatePayment"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreatePayment" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_attach"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="5dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintEnd_toEndOf="@+id/btnCreatePayment"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/btnCreatePayment"
         app:layout_constraintTop_toBottomOf="@+id/btnCreatePayment"
-        tools:srcCompat="@tools:sample/backgrounds/scenic[10]" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic[5]" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/delete_image"
+        android:visibility="gone"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:src="@drawable/close"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_attach"
+        app:layout_constraintTop_toTopOf="@+id/imageView_attach" />
 
     <TextView
-        android:id="@+id/txt_addImageDescript"
+        android:id="@+id/txtAddDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Insira uma imagem (Opcional)"
+        android:text="@string/insira_imagem"
         app:layout_constraintEnd_toEndOf="@+id/btnAddPhoto"
         app:layout_constraintStart_toStartOf="@+id/btnAddPhoto"
         app:layout_constraintTop_toBottomOf="@+id/btnAddPhoto" />

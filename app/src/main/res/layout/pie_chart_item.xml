@@ -17,8 +17,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
-        android:clickable="false"
         android:orientation="vertical">
+
 
         <TextView
             android:id="@+id/textView_chart"
@@ -26,24 +26,38 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="7dp"
-            android:textSize="11dp"
             android:layout_marginTop="8dp"
-            android:text="Despesas por Categoria" />
+            android:text="@string/despesas_por_categoria"
+            android:textSize="11dp" />
 
         <com.github.mikephil.charting.charts.PieChart
 
             android:id="@+id/pieChartView"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="match_parent"
+            android:layout_width="322dp"
+            android:layout_height="142dp"
             android:layout_alignStart="@+id/cardView3"
             android:layout_alignTop="@+id/cardView3"
             android:layout_alignBottom="@+id/cardView3"
             android:layout_gravity="bottom"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:paddingTop="50dp">
 
         </com.github.mikephil.charting.charts.PieChart>
+
+        <FrameLayout
+            android:id="@+id/progress_recycler"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ProgressBar>
+
+        </FrameLayout>
 
     </androidx.cardview.widget.CardView>
 

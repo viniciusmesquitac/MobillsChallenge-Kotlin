@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:showIn="@layout/fragment_expenses"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/back"
+        android:backgroundTint="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/description"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/editPrice"
+        app:layout_constraintStart_toStartOf="@+id/editPrice"
+        app:layout_constraintTop_toBottomOf="@+id/editPrice" />
+
+    <EditText
+        android:id="@+id/editPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="30dp"
+        android:hint="@string/price"
+        android:inputType="none|number"
+        android:maxLength="14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/price_simbol"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:clickable="true"
+        android:focusable="false"
+        android:hint="@string/date"
+        android:inputType="date"
+        android:selectAllOnFocus="false"
+        app:layout_constraintEnd_toEndOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="@+id/editDescription"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription" />
+
+    <Button
+        android:id="@+id/btnCreatePayment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="42dp"
+        android:background="@drawable/button_rounded"
+        android:backgroundTint="@color/colorRed"
+        android:text="@string/add"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mySpinner" />
+
+    <Spinner
+        android:id="@+id/mySpinner"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:entries="@array/categories"
+        android:prompt="@string/spinner_category"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="@+id/editDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editDate"
+        app:layout_constraintTop_toBottomOf="@+id/editDate" />
+
+    <ImageView
+        android:id="@+id/price_simbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/editPrice"
+        app:layout_constraintEnd_toStartOf="@+id/editPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editPrice"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/money" />
+
+    <ImageView
+        android:id="@+id/document_simbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editDescription"
+        app:layout_constraintEnd_toStartOf="@+id/editDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editDescription"
+        app:srcCompat="@drawable/description" />
+
+    <ImageView
+        android:id="@+id/date_simbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editDate"
+        app:layout_constraintEnd_toStartOf="@+id/editDate"
+        app:layout_constraintStart_toStartOf="parent"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintTop_toTopOf="@+id/editDate"
+        app:srcCompat="@drawable/date" />
+
+    <ImageView
+        android:id="@+id/category_simbol"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="4dp"
+        android:tint="@color/colorGray50Op"
+        app:layout_constraintBottom_toBottomOf="@+id/mySpinner"
+        app:layout_constraintEnd_toStartOf="@+id/mySpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mySpinner"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/category" />
+
+
+</merge>
